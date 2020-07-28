@@ -23,12 +23,39 @@ const idApp = {};
 idApp.eventListeners = function() {
    $('form').on('submit', function(event){
       event.preventDefault();
-      console.log('click!')
-
       const userGender = $('#gender option:checked').val()
       const userRegion = $('#regions option:checked').val()
-      console.log(userGender, userRegion)
+      idApp.apiCall(userGender, userRegion);
    })
+}
+
+idApp.apiCall = function(gender, region) {
+   $.ajax({
+      url: 'https://randomuser.me/api/',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+         results: 15,
+         gender: gender,
+         nat: region,
+      }
+   }).then(function(res){
+      console.log(res);
+      idApp.listOfNames(res.results);
+   })
+}
+
+idApp.listOfNames = function(results){
+   const resultsList = [];
+   results.forEach(function(i) {
+      const identity = {};
+      identity.name = `${i.name.title} ${i.name.first} ${i.name.last}`
+      identity.dateBirth = i.dob.date.substring(0, 10);
+      identity.photo = i.picture.large;
+      console.log(identity);
+      resultsList.push(identity);
+   })
+   console.log(resultsList);
 }
 
 
