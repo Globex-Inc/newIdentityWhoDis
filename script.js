@@ -2,15 +2,15 @@
 
 
 
-// User submits their country / gender, and we make an API call based on their selection 
 
-// API returns 15 identities, and we store it 
 
-// We are going to run a.forEach() loop through the stored API data and pull out name / DOB / index number of each result
 
-// Display(append the result list) that list to the user 
 
-// The user will select their preferred identity
+
+
+
+
+
 
 // Based on their selection, we will display the full identity profile to the user
 // We will reference the selected index number, but this time we will be pulling more information to make the full identity profile
@@ -23,12 +23,14 @@ const idApp = {};
 idApp.eventListeners = function() {
    $('form').on('submit', function(event){
       event.preventDefault();
+      // User submits their country / gender, and we make an API call based on their selection 
       const userGender = $('#gender option:checked').val()
       const userRegion = $('#regions option:checked').val()
       idApp.apiCall(userGender, userRegion);
    })
 }
 
+// API returns 15 identities, and we store it 
 idApp.apiCall = function(gender, region) {
    $.ajax({
       url: 'https://randomuser.me/api/',
@@ -45,19 +47,32 @@ idApp.apiCall = function(gender, region) {
    })
 }
 
+// We are going to run a .map() to pull out name / DOB / index number of each result, store it in an object and return to new array 
 idApp.listOfNames = function(results){
-   const resultsList = [];
-   results.forEach(function(i) {
+   const resultsList = results.map(function(i) {
       const identity = {};
       identity.name = `${i.name.title} ${i.name.first} ${i.name.last}`
       identity.dateBirth = i.dob.date.substring(0, 10);
       identity.photo = i.picture.large;
-      console.log(identity);
-      resultsList.push(identity);
+      return identity
    })
-   console.log(resultsList);
+   console.log('result list', resultsList)
+   idApp.displayChoices(resultsList);
 }
 
+// Display(.html the result list) that list to the user 
+idApp.displayChoices = function(array) {
+   $('.landingPage').html('')
+   console.log(array)
+   array.forEach(function(i) {
+      const name = $('<h2>').text(i.name);
+      const dateBirth = $('<p>').text(i.dateBirth);
+      const photo = $('<img>').attr('src', i.photo).attr('alt', `User photo: ${i.name}`);
+      $('.landingPage').append(name, dateBirth, photo)
+   })
+}
+
+// The user will select their preferred identity
 
 
 
