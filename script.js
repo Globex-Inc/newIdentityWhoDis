@@ -2,16 +2,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 // Based on their selection, we will display the full identity profile to the user
 // We will reference the selected index number, but this time we will be pulling more information to make the full identity profile
 // - First / Last Name, gender, location, email address, username, password, DOB, phone numbers, photo 
@@ -27,6 +17,12 @@ idApp.eventListeners = function() {
       const userGender = $('#gender option:checked').val()
       const userRegion = $('#regions option:checked').val()
       idApp.apiCall(userGender, userRegion);
+   })
+
+   // event listener for when user submits their final choice
+   $('.landingPage').on('submit', '.displayChoices', function(event) {
+      event.preventDefault();
+      console.log('clicked!');
    })
 }
 
@@ -54,6 +50,7 @@ idApp.listOfNames = function(results){
       identity.name = `${i.name.title} ${i.name.first} ${i.name.last}`
       identity.dateBirth = i.dob.date.substring(0, 10);
       identity.photo = i.picture.large;
+      identity.id = i.login.salt;
       return identity
    })
    console.log('result list', resultsList)
@@ -62,17 +59,37 @@ idApp.listOfNames = function(results){
 
 // Display(.html the result list) that list to the user 
 idApp.displayChoices = function(array) {
-   $('.landingPage').html('')
-   console.log(array)
+   $('.landingPage').html(`
+   <form for="" class="displayChoices">
+   <fieldset class="resultsList">
+   </fieldset>
+   <button type="submit">Submit</button>
+   </form>
+
+   `)
+   // console.log(array)
    array.forEach(function(i) {
       const name = $('<h2>').text(i.name);
       const dateBirth = $('<p>').text(i.dateBirth);
-      const photo = $('<img>').attr('src', i.photo).attr('alt', `User photo: ${i.name}`);
-      $('.landingPage').append(name, dateBirth, photo)
+      const photo = $('<img>').attr({src: `${i.photo}`, alt: `User photo: ${i.name}`});
+
+      // $('.landingPage').append(name, dateBirth, photo);
+
+      const radioInput = $(`<input type=radio id="${i.id}" name="option">`).appendTo('.resultsList');
+      const radioLabel = $('<label>').attr('for', i.id).html(`<div><img src="${i.photo}" alt="Photo for ${i.name}"><p>${i.name}</p><p>${i.dateBirth}</p></div>`).appendTo('.resultsList');
+      
+      // const radioInput = $('<input>').attr('type', 'radio').attr('name', 'displayChoice').attr('value',i.name);
+      // const radioLabel = $('<label>').attr('for', i.name).val(i.name, i.dateBirth, i.photo);
+      // $('.landingPage').append(`
+      //       ${radioLabel}
+      //       ${radioInput}
+      // `);
+      console.log(i.name, i.dateBirth, i.photo)
    })
 }
 
 // The user will select their preferred identity
+
 
 
 
