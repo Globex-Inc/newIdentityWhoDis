@@ -2,9 +2,6 @@
 
 
 
-// Based on their selection, we will display the full identity profile to the user
-// We will reference the selected index number, but this time we will be pulling more information to make the full identity profile
-// - First / Last Name, gender, location, email address, username, password, DOB, phone numbers, photo 
 
 const idApp = {};
 
@@ -17,16 +14,21 @@ idApp.eventListeners = function() {
       const userGender = $('#gender option:checked').val()
       const userRegion = $('#regions option:checked').val()
       idApp.apiCall(userGender, userRegion);
+      idApp.listOfNames()
    })
 
+   // The user will select their preferred identity
    // event listener for when user submits their final choice
    $('.landingPage').on('submit', '.displayChoices', function(event) {
       event.preventDefault();
-      console.log('clicked!');
+      const finalSelection = $('input[name="option"]').val();
+      
+      console.log(finalSelection);
    })
 }
 
 // API returns 15 identities, and we store it 
+idApp.apiResults = []
 idApp.apiCall = function(gender, region) {
    $.ajax({
       url: 'https://randomuser.me/api/',
@@ -38,10 +40,14 @@ idApp.apiCall = function(gender, region) {
          nat: region,
       }
    }).then(function(res){
-      console.log(res);
+      // console.log(res);
+      res.results.forEach(function(i) {
+         idApp.apiResults.push(i);
+      })
       idApp.listOfNames(res.results);
    })
 }
+console.log(idApp.apiResults)
 
 // We are going to run a .map() to pull out name / DOB / index number of each result, store it in an object and return to new array 
 idApp.listOfNames = function(results){
@@ -53,7 +59,7 @@ idApp.listOfNames = function(results){
       identity.id = i.login.salt;
       return identity
    })
-   console.log('result list', resultsList)
+   // console.log('result list', resultsList)
    idApp.displayChoices(resultsList);
 }
 
@@ -75,7 +81,7 @@ idApp.displayChoices = function(array) {
 
       // $('.landingPage').append(name, dateBirth, photo);
 
-      const radioInput = $(`<input type=radio id="${i.id}" name="option">`).appendTo('.resultsList');
+      const radioInput = $(`<input type=radio id="${i.id}" name="option" value="${i.name}">`).appendTo('.resultsList');
       const radioLabel = $('<label>').attr('for', i.id).html(`<div><img src="${i.photo}" alt="Photo for ${i.name}"><p>${i.name}</p><p>${i.dateBirth}</p></div>`).appendTo('.resultsList');
       
       // const radioInput = $('<input>').attr('type', 'radio').attr('name', 'displayChoice').attr('value',i.name);
@@ -84,11 +90,42 @@ idApp.displayChoices = function(array) {
       //       ${radioLabel}
       //       ${radioInput}
       // `);
-      console.log(i.name, i.dateBirth, i.photo)
+      // console.log(i.name, i.dateBirth, i.photo)
    })
 }
 
-// The user will select their preferred identity
+// Based on their selection, we will display the full identity profile to the user
+// We will reference the selected index number, but this time we will be pulling more information to make the full identity profile
+// - First / Last Name, gender, location, email address, username, password, DOB, phone numbers, photo 
+idApp.finalDisplay = function() {
+   $('.landingPage').html(`
+      <section class="nameplate">
+         <div class="userPhoto">
+            <img src="" alt="">
+         </div>
+         <div class="userName">
+            <h2>Ms. Mindy Marshall</h2>
+            <p>Gender</p>
+            <p>Dec 16, 1992</p>
+         </div>
+      </section>
+      <section class="contactInfo">
+         <h3>- Contact Info -</h3>
+         <address>
+            <p>Address 1</p>
+            <p>Address 2</p>
+            <p>Address 3</p>
+         </address>
+         <p>123-456-7890</p>
+         <p>123@gmail.com</p>
+      </section>
+      <section class="socialMedia">
+         <h3>- New Social Media -</h3>
+         <p>Username</p>
+         <p>Password</p>
+      </section>
+   `)
+}
 
 
 
