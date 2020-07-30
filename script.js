@@ -20,7 +20,8 @@ idApp.eventListeners = function() {
    // event listener for when user submits their final choice
    $('.landingPage').on('submit', '.displayChoices', function(event) {
       event.preventDefault();
-      const userFinalSelection = $('input[name="option"]').val();
+      const userFinalSelection = $('input[name="option"]:checked').val();
+      console.log('user selection', userFinalSelection)
       const finalResult = idApp.apiResults.filter(function(selectedChoice) {
          return selectedChoice.login.salt === userFinalSelection;
       })
@@ -83,7 +84,7 @@ idApp.displayChoices = function(array) {
 
       // $('.landingPage').append(name, dateBirth, photo);
 
-      const radioInput = $(`<input type=radio id="${i.id}" name="option" value="${i.id}">`).appendTo('.resultsList');
+      const radioInput = $(`<input type="radio" id="${i.id}" name="option" value="${i.id}">`).appendTo('.resultsList');
       const radioLabel = $('<label>').attr('for', i.id).html(`<div><img src="${i.photo}" alt="Photo for ${i.name}"><p>${i.name}</p><p>${i.dateBirth}</p></div>`).appendTo('.resultsList');
       
       // const radioInput = $('<input>').attr('type', 'radio').attr('name', 'displayChoice').attr('value',i.name);
