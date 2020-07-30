@@ -5,6 +5,24 @@
 
 const idApp = {};
 
+// API returns 15 identities, and we store it 
+
+idApp.apiCall = function(gender, region) {
+   $.ajax({
+      url: 'https://randomuser.me/api/',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+         results: 15,
+         gender: gender,
+         nat: region,
+      }.then(function(res) {
+         return res;
+      })
+   })
+}
+
+
 // Select preferred region and gender(M, F, doesn't matter) from dropdown
 //    - dropdown will have some examples of countries(i.e.great britain, finland, etc.), which we will need to translate to the country code from the API(ex.label = "Canada" value = "CA" in HTML)
 idApp.eventListeners = function() {
@@ -13,8 +31,9 @@ idApp.eventListeners = function() {
       // User submits their country / gender, and we make an API call based on their selection 
       const userGender = $('#gender option:checked').val()
       const userRegion = $('#regions option:checked').val()
-      idApp.apiCall(userGender, userRegion);
-      idApp.listOfNames()
+      const results = idApp.apiCall(userGender, userRegion)
+      // idApp.listOfNames();
+      console.log(results);
    })
 
    // The user will select their preferred identity
@@ -27,27 +46,6 @@ idApp.eventListeners = function() {
    })
 }
 
-// API returns 15 identities, and we store it 
-idApp.apiResults = []
-idApp.apiCall = function(gender, region) {
-   $.ajax({
-      url: 'https://randomuser.me/api/',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-         results: 15,
-         gender: gender,
-         nat: region,
-      }
-   }).then(function(res){
-      // console.log(res);
-      res.results.forEach(function(i) {
-         idApp.apiResults.push(i);
-      })
-      idApp.listOfNames(res.results);
-   })
-}
-console.log(idApp.apiResults)
 
 // We are going to run a .map() to pull out name / DOB / index number of each result, store it in an object and return to new array 
 idApp.listOfNames = function(results){
