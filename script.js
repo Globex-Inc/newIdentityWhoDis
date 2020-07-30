@@ -14,16 +14,18 @@ idApp.eventListeners = function() {
       const userGender = $('#gender option:checked').val()
       const userRegion = $('#regions option:checked').val()
       idApp.apiCall(userGender, userRegion);
-      idApp.listOfNames()
    })
 
    // The user will select their preferred identity
    // event listener for when user submits their final choice
    $('.landingPage').on('submit', '.displayChoices', function(event) {
       event.preventDefault();
-      const finalSelection = $('input[name="option"]').val();
+      const userFinalSelection = $('input[name="option"]').val();
+      const finalResult = idApp.apiResults.filter(function(selectedChoice) {
+         return selectedChoice.login.salt === userFinalSelection;
+      })
       
-      console.log(finalSelection);
+      idApp.finalDisplay(finalResult);
    })
 }
 
@@ -81,7 +83,7 @@ idApp.displayChoices = function(array) {
 
       // $('.landingPage').append(name, dateBirth, photo);
 
-      const radioInput = $(`<input type=radio id="${i.id}" name="option" value="${i.name}">`).appendTo('.resultsList');
+      const radioInput = $(`<input type=radio id="${i.id}" name="option" value="${i.id}">`).appendTo('.resultsList');
       const radioLabel = $('<label>').attr('for', i.id).html(`<div><img src="${i.photo}" alt="Photo for ${i.name}"><p>${i.name}</p><p>${i.dateBirth}</p></div>`).appendTo('.resultsList');
       
       // const radioInput = $('<input>').attr('type', 'radio').attr('name', 'displayChoice').attr('value',i.name);
@@ -97,34 +99,38 @@ idApp.displayChoices = function(array) {
 // Based on their selection, we will display the full identity profile to the user
 // We will reference the selected index number, but this time we will be pulling more information to make the full identity profile
 // - First / Last Name, gender, location, email address, username, password, DOB, phone numbers, photo 
-idApp.finalDisplay = function() {
+idApp.finalDisplay = function(array) {
    $('.landingPage').html(`
       <section class="nameplate">
          <div class="userPhoto">
-            <img src="" alt="">
+            <img src="${array[0].picture.large}" alt="user photo: ${array[0].name.first} ${array[0].name.last}">
          </div>
          <div class="userName">
-            <h2>Ms. Mindy Marshall</h2>
-            <p>Gender</p>
-            <p>Dec 16, 1992</p>
+            <h2>${array[0].name.title} ${array[0].name.first} ${array[0].name.last}</h2>
+            <p>${array[0].gender}</p>
+            <p>${array[0].dob.date.substring(0, 10)}</p>
          </div>
       </section>
       <section class="contactInfo">
          <h3>- Contact Info -</h3>
          <address>
-            <p>Address 1</p>
-            <p>Address 2</p>
-            <p>Address 3</p>
+            <p>${array[0].location.street}</p>
+            <p>${array[0].location.city}, ${array[0].location.country}</p>
+            <p>${array[0].location.postcode}</p>
          </address>
-         <p>123-456-7890</p>
-         <p>123@gmail.com</p>
+         <p>${array[0].phone}</p>
+         <p>${array[0].email}</p>
       </section>
       <section class="socialMedia">
          <h3>- New Social Media -</h3>
-         <p>Username</p>
-         <p>Password</p>
+         <p>${array[0].login.username}</p>
+         <p>${array[0].login.password}</p>
       </section>
+      <form>
+         <button type="submit">Reset</button>
+      </form>
    `)
+   console.log(array);
 }
 
 
