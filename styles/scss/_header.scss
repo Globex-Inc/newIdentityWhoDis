@@ -1,0 +1,14 @@
+header {
+   background-color: $bgColor;
+   min-height: 20vh;
+   text-align: center;
+   
+   h1 {
+      @include fontStyle($decorFont, $fontMainColor);
+      padding: 20px;
+   }
+
+   p {
+      @include fontStyle($bodyFont, $fontMainColor);
+   }
+}

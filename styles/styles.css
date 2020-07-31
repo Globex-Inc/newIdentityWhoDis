@@ -226,8 +226,58 @@ html {
   overflow: hidden;
 }
 
+h1, h2, h3, p {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  width: 100%;
+}
+
 .wrapper {
   max-width: 1200px;
   width: 95%;
   margin: 0 auto;
+}
+
+button {
+  background-color: #e63946;
+  padding: 10px 25px;
+  color: #f1faee;
+  font-family: "Nova Square", cursive;
+  border: #e63946;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+button:hover, button:focus {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  border: 2.5px solid #d90429;
+}
+
+header {
+  background-color: #0f1c2e;
+  min-height: 20vh;
+  text-align: center;
+}
+
+header h1 {
+  font-family: "Nova Square", cursive;
+  font-weight: 400;
+  color: #f1faee;
+  line-height: auto;
+  padding: 20px;
+}
+
+header p {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: #f1faee;
+  line-height: auto;
+}
+
+main {
+  background: #0f1c2e;
 }

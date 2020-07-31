@@ -1,0 +1,25 @@
+// * {border: 1px solid red;}
+
+h1, h2, h3, p {
+   margin: 0;
+   padding: 0;
+}
+
+img {
+   width: 100%;
+}
+
+.wrapper {
+   max-width: 1200px;
+   width: 95%;
+   margin: 0 auto;
+}
+
+button {
+   @include mainButton();
+
+   &:hover, 
+   &:focus {
+      @include buttonHo();
+   }
+}
