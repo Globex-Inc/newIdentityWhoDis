@@ -1,31 +1,36 @@
+// Namespace 
 const idApp = {};
 
-// Select preferred region and gender(M, F, doesn't matter) from dropdown
-//    - dropdown will have some examples of countries(i.e.great britain, finland, etc.), which we will need to translate to the country code from the API(ex.label = "Canada" value = "CA" in HTML)
+// Event Listeners Function  
 idApp.eventListeners = function() {
+   // Event Listener #1 - for when the user first submits their preferred region/gender
    $('form').on('submit', function(event){
       event.preventDefault();
-      // User submits their country / gender, and we make an API call based on their selection 
+      // Store the user's chosen gender and region in variables
       const userGender = $('#gender option:checked').val()
       const userRegion = $('#regions option:checked').val()
+      // Call the API function, passing in the user's choices as arguments 
       idApp.apiCall(userGender, userRegion);
    })
 
-   // The user will select their preferred identity
-   // event listener for when user submits their final choice
+   // Event Listener #2 - for when the user submits their final choice of identity
    $('.landingPage').on('submit', '.displayChoices', function(event) {
       event.preventDefault();
+      // Store the user's final selection in a variable 
       const userFinalSelection = $('input[name="option"]:checked').val();
+      // Filter through the idApp.apiResults array to find a match for the user's final selection; store in new array finalResult 
       const finalResult = idApp.apiResults.filter(function(selectedChoice) {
          return selectedChoice.login.salt === userFinalSelection;
       })
-      
+      // Call the idApp.finalDisplay function, passing in finalResult array as an argument 
       idApp.finalDisplay(finalResult);
    })
 }
 
-// API returns 15 identities, and we store it 
+// Empty array to store the API results in
 idApp.apiResults = []
+
+// API Call Function 
 idApp.apiCall = function(gender, region) {
    $.ajax({
       url: 'https://randomuser.me/api/',
@@ -37,16 +42,18 @@ idApp.apiCall = function(gender, region) {
          nat: region,
       }
    }).then(function(res){
+      // Loop through res.results array, and push each object into idApp.apiResults array
       res.results.forEach(function(i) {
          idApp.apiResults.push(i);
       })
+      // Call the idApp.listOfNames function, and pass in results from the API call 
       idApp.listOfNames(res.results);
    })
 }
-console.log(idApp.apiResults)
 
-// We are going to run a .map() to pull out name / DOB / index number of each result, store it in an object and return to new array 
+// Function to pull out data (name, DOB, photo, ID) for the 15 identity choices
 idApp.listOfNames = function(results){
+   // Store results in new array called resultsList
    const resultsList = results.map(function(i) {
       const identity = {
          name: `${i.name.title} ${i.name.first} ${i.name.last}`,
@@ -56,20 +63,20 @@ idApp.listOfNames = function(results){
       };
       return identity
    })
+   // Call the idApp.displayChoices function, passing in resultsList array as an argument 
    idApp.displayChoices(resultsList);
 }
 
-// Display(.html the result list) that list to the user 
+// Function for displaying the 15 choices on the DOM 
 idApp.displayChoices = function(array) {
    $('.landingPage').html(`
-   <form for="" class="displayChoices">
+   <form action="" class="displayChoices">
    <fieldset class="resultsList">
    </fieldset>
    <button type="submit">Submit</button>
    </form>
-
    `)
-   // console.log(array)
+
    array.forEach(function(i) {
       const name = $('<h2>').text(i.name);
       const dateBirth = $('<p>').text(i.dateBirth);
@@ -88,9 +95,7 @@ idApp.displayChoices = function(array) {
    })
 }
 
-// Based on their selection, we will display the full identity profile to the user
-// We will reference the selected index number, but this time we will be pulling more information to make the full identity profile
-// - First / Last Name, gender, location, email address, username, password, DOB, phone numbers, photo 
+// Function to display the full bio of the user's chosen identity (name/gender/location/email/username/password/DOB/phone number/photo)
 idApp.finalDisplay = function(array) {
    const finalChoiceObject = array[0]
    const { cell, dob, email, gender, location, login, name, picture } = finalChoiceObject
@@ -128,18 +133,12 @@ idApp.finalDisplay = function(array) {
    `)
 }
 
-
-
-
-
-
-
-
-
+// Init Function 
 idApp.init = function(){
    idApp.eventListeners();
 }
 
+// Document Ready
 $(function(){
    idApp.init();
 })
