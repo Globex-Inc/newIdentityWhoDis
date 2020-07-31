@@ -14,7 +14,7 @@ idApp.eventListeners = function() {
    })
 
    // Event Listener #2 - for when the user submits their final choice of identity
-   $('.landingPage').on('submit', '.displayChoices', function(event) {
+   $('main').on('submit', '.displayChoices', function(event) {
       event.preventDefault();
       // Store the user's final selection in a variable 
       const userFinalSelection = $('input[name="option"]:checked').val();
@@ -69,7 +69,7 @@ idApp.listOfNames = function(results){
 
 // Function for displaying the 15 choices on the DOM 
 idApp.displayChoices = function(array) {
-   $('.landingPage').html(`
+   $('.windowA').toggleClass('windowA windowB').html(`
    <form action="" class="displayChoices">
    <fieldset class="resultsList">
    </fieldset>
@@ -101,7 +101,7 @@ idApp.finalDisplay = function(array) {
    const { cell, dob, email, gender, location, login, name, picture } = finalChoiceObject
    const { city, country, postcode, state, street } = location
 
-   $('.landingPage').html(`
+   $('.windowB').toggleClass('windowB windowC').html(`
       <section class="nameplate">
          <div class="userPhoto">
             <img src="${picture.large}" alt="user photo: ${name.first} ${name.last}">
