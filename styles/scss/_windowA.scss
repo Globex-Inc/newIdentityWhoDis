@@ -2,6 +2,30 @@ main {
    background: $bgColor;
 }
 
-// .windowA {
+.windowA {
+   height: 75vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
 
-// }
+
+   .userInput {
+      min-height: 50%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      select {
+         background-color: $secondBgColor;
+         @include fontStyle($bodyFont, $bgColor, 1rem);
+         text-align: center;
+         width: calc(50% - 40px);
+         padding: 20px;
+      }
+
+      .submitButton {
+         margin: 0 auto;
+      }
+   }
+}
