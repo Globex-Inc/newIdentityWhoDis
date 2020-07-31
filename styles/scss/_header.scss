@@ -4,11 +4,11 @@ header {
    text-align: center;
    
    h1 {
-      @include fontStyle($decorFont, $fontMainColor);
+      @include fontStyle($decorFont, $fontMainColor, 5rem);
       padding: 20px;
    }
 
    p {
-      @include fontStyle($bodyFont, $fontMainColor);
+      @include fontStyle($bodyFont, $fontMainColor, 1.25rem);
    }
 }

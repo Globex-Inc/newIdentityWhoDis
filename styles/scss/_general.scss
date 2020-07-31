@@ -1,12 +1,24 @@
 // * {border: 1px solid red;}
 
-h1, h2, h3, p {
+html {
+   font-size: 125%;
+}
+
+h1, h2, h3, p, ul {
    margin: 0;
    padding: 0;
 }
 
 img {
    width: 100%;
+}
+
+li {
+   list-style: none;
+}
+
+address {
+   font-style: normal;
 }
 
 .wrapper {
@@ -20,6 +32,6 @@ button {
 
    &:hover, 
    &:focus {
-      @include buttonHo();
+      @include buttonHover();
    }
 }
