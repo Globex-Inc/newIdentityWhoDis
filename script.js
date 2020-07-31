@@ -21,7 +21,6 @@ idApp.eventListeners = function() {
    $('.landingPage').on('submit', '.displayChoices', function(event) {
       event.preventDefault();
       const userFinalSelection = $('input[name="option"]:checked').val();
-      console.log('user selection', userFinalSelection)
       const finalResult = idApp.apiResults.filter(function(selectedChoice) {
          return selectedChoice.login.salt === userFinalSelection;
       })
@@ -43,7 +42,6 @@ idApp.apiCall = function(gender, region) {
          nat: region,
       }
    }).then(function(res){
-      // console.log(res);
       res.results.forEach(function(i) {
          idApp.apiResults.push(i);
       })
@@ -55,14 +53,14 @@ console.log(idApp.apiResults)
 // We are going to run a .map() to pull out name / DOB / index number of each result, store it in an object and return to new array 
 idApp.listOfNames = function(results){
    const resultsList = results.map(function(i) {
-      const identity = {};
-      identity.name = `${i.name.title} ${i.name.first} ${i.name.last}`
-      identity.dateBirth = i.dob.date.substring(0, 10);
-      identity.photo = i.picture.large;
-      identity.id = i.login.salt;
+      const identity = {
+         name: `${i.name.title} ${i.name.first} ${i.name.last}`,
+         dateBirth: i.dob.date.substring(0, 10),
+         photo: i.picture.large,
+         id: i.login.salt
+      };
       return identity
    })
-   // console.log('result list', resultsList)
    idApp.displayChoices(resultsList);
 }
 
@@ -81,11 +79,22 @@ idApp.displayChoices = function(array) {
       const name = $('<h2>').text(i.name);
       const dateBirth = $('<p>').text(i.dateBirth);
       const photo = $('<img>').attr({src: `${i.photo}`, alt: `User photo: ${i.name}`});
+      const labelInfoContainer = $('<div>').append(name, dateBirth, photo)
+
+      const radioInput = $('<input>').attr({
+      type: 'radio', 
+      id: `${i.id}`, 
+      name: 'option', 
+      value: `${i.id}`})
+
+      const radioLabel = $('<label>').attr('for', i.id).append(labelInfoContainer)
+
+      $('.resultsList').append(radioInput, radioLabel)
 
       // $('.landingPage').append(name, dateBirth, photo);
 
-      const radioInput = $(`<input type="radio" id="${i.id}" name="option" value="${i.id}">`).appendTo('.resultsList');
-      const radioLabel = $('<label>').attr('for', i.id).html(`<div><img src="${i.photo}" alt="Photo for ${i.name}"><p>${i.name}</p><p>${i.dateBirth}</p></div>`).appendTo('.resultsList');
+      // const radioInput = $(`<input type="radio" id="${i.id}" name="option" value="${i.id}">`).appendTo('.resultsList');
+      // const radioLabel = $('<label>').attr('for', i.id).html(`<div><img src="${i.photo}" alt="Photo for ${i.name}"><p>${i.name}</p><p>${i.dateBirth}</p></div>`).appendTo('.resultsList');
       
       // const radioInput = $('<input>').attr('type', 'radio').attr('name', 'displayChoice').attr('value',i.name);
       // const radioLabel = $('<label>').attr('for', i.name).val(i.name, i.dateBirth, i.photo);
@@ -94,6 +103,8 @@ idApp.displayChoices = function(array) {
       //       ${radioInput}
       // `);
       // console.log(i.name, i.dateBirth, i.photo)
+
+
    })
 }
 
@@ -101,37 +112,40 @@ idApp.displayChoices = function(array) {
 // We will reference the selected index number, but this time we will be pulling more information to make the full identity profile
 // - First / Last Name, gender, location, email address, username, password, DOB, phone numbers, photo 
 idApp.finalDisplay = function(array) {
+   const finalChoiceObject = array[0]
+   const { cell, dob, email, gender, location, login, name, picture } = finalChoiceObject
+   const { city, country, postcode, state, street } = location
+
    $('.landingPage').html(`
       <section class="nameplate">
          <div class="userPhoto">
-            <img src="${array[0].picture.large}" alt="user photo: ${array[0].name.first} ${array[0].name.last}">
+            <img src="${picture.large}" alt="user photo: ${name.first} ${name.last}">
          </div>
          <div class="userName">
-            <h2>${array[0].name.title} ${array[0].name.first} ${array[0].name.last}</h2>
-            <p>${array[0].gender}</p>
-            <p>${array[0].dob.date.substring(0, 10)}</p>
+            <h2>${name.title} ${name.first} ${name.last}</h2>
+            <p>${gender}</p>
+            <p>${dob.date.substring(0, 10)}</p>
          </div>
       </section>
       <section class="contactInfo">
          <h3>- Contact Info -</h3>
          <address>
-            <p>${array[0].location.street}</p>
-            <p>${array[0].location.city}, ${array[0].location.country}</p>
-            <p>${array[0].location.postcode}</p>
+            <p>${street.number} ${street.name}</p>
+            <p>${city}, ${state}</p>
+            <p>${country} ${postcode}</p>
          </address>
-         <p>${array[0].phone}</p>
-         <p>${array[0].email}</p>
+         <p>${cell}</p>
+         <p>${email}</p>
       </section>
       <section class="socialMedia">
          <h3>- New Social Media -</h3>
-         <p>${array[0].login.username}</p>
-         <p>${array[0].login.password}</p>
+         <p>${login.username}</p>
+         <p>${login.password}</p>
       </section>
       <form>
          <button type="submit">Reset</button>
       </form>
    `)
-   console.log(array);
 }
 
 
