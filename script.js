@@ -1,8 +1,3 @@
-// PSEUDOCODE
-
-
-
-
 const idApp = {};
 
 // Select preferred region and gender(M, F, doesn't matter) from dropdown
@@ -90,21 +85,6 @@ idApp.displayChoices = function(array) {
       const radioLabel = $('<label>').attr('for', i.id).append(labelInfoContainer)
 
       $('.resultsList').append(radioInput, radioLabel)
-
-      // $('.landingPage').append(name, dateBirth, photo);
-
-      // const radioInput = $(`<input type="radio" id="${i.id}" name="option" value="${i.id}">`).appendTo('.resultsList');
-      // const radioLabel = $('<label>').attr('for', i.id).html(`<div><img src="${i.photo}" alt="Photo for ${i.name}"><p>${i.name}</p><p>${i.dateBirth}</p></div>`).appendTo('.resultsList');
-      
-      // const radioInput = $('<input>').attr('type', 'radio').attr('name', 'displayChoice').attr('value',i.name);
-      // const radioLabel = $('<label>').attr('for', i.name).val(i.name, i.dateBirth, i.photo);
-      // $('.landingPage').append(`
-      //       ${radioLabel}
-      //       ${radioInput}
-      // `);
-      // console.log(i.name, i.dateBirth, i.photo)
-
-
    })
 }
 
