@@ -528,7 +528,7 @@ main {
   border-radius: 12px;
 }
 
-.windowC form {
+.windowC .border {
   border: 5px solid #0f1c2e;
   border-radius: 12px;
   display: -webkit-box;
@@ -540,11 +540,14 @@ main {
           flex-direction: column;
 }
 
-.windowC form button {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  margin: 20px 0;
+.windowC form {
+  text-align: center;
+}
+
+.windowC button {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 200px;
 }
 
 .windowC section {
@@ -566,11 +569,6 @@ main {
 
 .windowC section h2 {
   color: #0f1c2e;
-}
-
-.windowC section h3 {
-  color: #0f1c2e;
-  padding: 10px;
 }
 
 .windowC section p {
@@ -619,6 +617,37 @@ main {
 
 .windowC .userName p:first-of-type {
   margin: 5px 0;
+}
+
+.windowC .profileHeader {
+  color: #0f1c2e;
+  font-weight: 700;
+  padding: 10px;
+  display: block;
+  cursor: pointer;
+}
+
+.windowC .profileHeader:hover {
+  background-color: #a8dadc;
+  border-radius: 12px;
+}
+
+.windowC .hiddenContents {
+  max-height: 1px;
+  overflow: hidden;
+  -webkit-transition: max-height .1s;
+  transition: max-height .1s;
+}
+
+.windowC .checkbox:checked ~ .hiddenContents {
+  margin-top: 10px;
+  max-height: 500px;
+  -webkit-transition: max-height .5s;
+  transition: max-height .5s;
+}
+
+.windowC .checkbox:focus + label {
+  background: #a8dadc;
 }
 
 footer {

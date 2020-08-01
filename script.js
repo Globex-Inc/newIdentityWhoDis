@@ -119,7 +119,7 @@ idApp.finalDisplay = function(array) {
    const { city, country, postcode, state, street } = location
 
    $('.windowB').toggleClass('windowB windowC').html(`
-      <form>
+      <div class="border">
          <section class="nameplate">
             <div class="userPhoto">
                <img src="${picture.large}" alt="user photo: ${name.first} ${name.last}">
@@ -131,28 +131,39 @@ idApp.finalDisplay = function(array) {
             </div>
          </section>
          <section class="contactInfo">
-            <h3>- Contact Info -</h3>
-            <address>
-               <p>Address:</p>
-               <p>${street.number} ${street.name}</p>
-               <p>${city}, ${state}</p>
-               <p>${country} ${postcode}</p>
-            </address>
-            <p><span>Phone:</span> ${cell}</p>
-            <p><span>Email:</span> ${email}</p>
+            <input type="checkbox" id="contactInfo" name="dropdown" class="checkbox srOnly">
+            <label for="contactInfo" class="profileHeader">- Contact Information -</label>
+            <div class="hiddenContents">
+               <address>
+                  <p>Address:</p>
+                  <p>${street.number} ${street.name}</p>
+                  <p>${city}, ${state}</p>
+                  <p>${country} ${postcode}</p>
+               </address>
+               <p><span>Phone:</span> ${cell}</p>
+               <p><span>Email:</span> ${email}</p>
+            </div>
          </section>
          <section class="socialMedia">
-            <h3>- New Social Media -</h3>
-            <p><span>Username:</span> ${login.username}</p>
-            <p><span>Password:</span> ${login.password}</p>
+            <input type="checkbox" id="newSocials" name="dropdown" class="checkbox srOnly">
+            <label for="newSocials" class="profileHeader">- New Social Media -</label>
+            <div class="hiddenContents">
+               <p><span>Username:</span> ${login.username}</p>
+               <p><span>Password:</span> ${login.password}</p>
+            </div>
          </section>
-         <button type="submit">Reset</button>
-      </form>
+         <form>
+            <button type="submit">Reset</button>
+         </form>
+      </div>
    `)
 
    $('.instructions').html(`
    <span>Et Voila!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class="important">Click the <span class="button">reset button</span> at the bottom if you want to try again.</span>
    `)
+
+   //scroll to top of window during transition from windowB to windowC
+   window.scrollTo(0,0);
 }
 
 // Init Function 

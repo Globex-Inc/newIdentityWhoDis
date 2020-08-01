@@ -4,17 +4,22 @@
    background: $secondBgColor;
    border-radius: 12px;
 
-   form {
+   .border {
       border: 5px solid $bgColor;
       border-radius: 12px;
       display: flex;
       flex-direction: column;
-
-      button {
-         align-self: center;
-         margin: 20px 0;
-      }
    }
+
+   form {
+      text-align: center;
+   }
+   button {
+      margin: 20px auto;
+      width: 100%;
+      max-width: 200px;
+   }
+   
 
    section {
       padding: 20px;
@@ -33,11 +38,6 @@
 
       h2 {
          color: $bgColor;
-      }
-
-      h3 {
-         color: $bgColor;
-         padding: 10px;
       }
 
       p {
@@ -85,4 +85,34 @@
          margin: 5px 0;
       }
    }
+
+   .profileHeader {
+   color: $bgColor;
+   font-weight: 700;
+   padding: 10px;
+   display: block;
+   cursor: pointer;
+
+      &:hover {
+         background-color: $accentBlue;
+         border-radius: 12px;
+      }
+   }
+
+   .hiddenContents {
+      max-height: 1px;
+      overflow: hidden;
+      transition: max-height .1s;
+   }
+
+   .checkbox:checked ~ .hiddenContents {
+      margin-top: 10px;
+      max-height: 500px;
+      transition: max-height .5s;
+   }
+
+   .checkbox:focus + label {
+      background: $accentBlue;
+   }
+
 }
