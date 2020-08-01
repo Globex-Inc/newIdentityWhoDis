@@ -14,7 +14,7 @@ img {
    height: auto;
    display: block;
 }
-}
+
 
 li {
    list-style: none;
@@ -22,6 +22,16 @@ li {
 
 address {
    font-style: normal;
+}
+
+a {
+   color: $fontMainColor;
+   text-decoration: none;
+
+   &:hover,
+   &:focus {
+      color: $accentVibrantRed;
+   }
 }
 
 .wrapper {

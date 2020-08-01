@@ -236,7 +236,9 @@ h1, h2, h3, p, ul {
 }
 
 img {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 li {
@@ -245,6 +247,15 @@ li {
 
 address {
   font-style: normal;
+}
+
+a {
+  color: #f1faee;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: #d90429;
 }
 
 .wrapper {
@@ -258,7 +269,7 @@ button {
   padding: 10px 25px;
   color: #f1faee;
   font-family: "Nova Square", cursive;
-  border: #e63946;
+  border: 2.5px solid #e63946;
   border-radius: 12px;
   cursor: pointer;
 }
@@ -339,4 +350,117 @@ main {
 
 .windowA .userInput .submitButton {
   margin: 0 auto;
+}
+
+.windowB {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 50px;
+}
+
+.windowB fieldset {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border: none;
+  padding-bottom: 50px;
+}
+
+.windowB fieldset h2 {
+  margin: 10px 0;
+  font-size: 1.3rem;
+  font-family: "Nova Square", cursive;
+  font-weight: 400;
+  color: #d90429;
+  line-height: auto;
+}
+
+.windowB fieldset p {
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: #f1faee;
+  line-height: auto;
+}
+
+.windowB fieldset .dobStyle {
+  color: #0f1c2e;
+}
+
+.windowB fieldset input[type='radio'] {
+  opacity: 0;
+}
+
+.windowB fieldset label {
+  background-color: #78a5bf;
+  border: 2.5px #78a5bf solid;
+  border-radius: 12px;
+  -webkit-box-shadow: 15px 15px 0px #a8dadc;
+          box-shadow: 15px 15px 0px #a8dadc;
+  display: block;
+  margin: 25px auto;
+  padding-left: 20px;
+  width: 80%;
+}
+
+.windowB fieldset label:hover,
+.windowB fieldset input[type='radio']:focus + label,
+.windowB fieldset input[type=radio]:checked + label {
+  border: 2.5px #e63946 solid;
+  background-color: #e63946;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.windowB fieldset label:hover h2,
+.windowB fieldset input[type='radio']:focus + label h2,
+.windowB fieldset input[type=radio]:checked + label h2 {
+  color: #0f1c2e;
+}
+
+.windowB fieldset .optionContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 20px;
+}
+
+.windowB fieldset .optionContainer img {
+  border: 2px solid #0f1c2e;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.windowB fieldset .textContainer {
+  margin-left: 50px;
+}
+
+.windowB fieldset button {
+  margin: 100px;
+  display: inline-block;
+}
+
+footer {
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: #f1faee;
+  line-height: auto;
+  background-color: #78a5bf;
+  padding: 15px 0;
+  text-align: center;
 }

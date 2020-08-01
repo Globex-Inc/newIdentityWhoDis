@@ -25,6 +25,13 @@ idApp.eventListeners = function() {
       // Call the idApp.finalDisplay function, passing in finalResult array as an argument 
       idApp.finalDisplay(finalResult);
    })
+
+   // Event Listener #3 - for when user hits the "Show Me More" button
+   $('main').on('submit', '.refreshOptions', function(event) {
+      event.preventDefault();
+      $('.resultsList').html('');
+      idApp.apiCall();
+   });
 }
 
 // Empty array to store the API results in
@@ -70,18 +77,28 @@ idApp.listOfNames = function(results){
 // Function for displaying the 15 choices on the DOM 
 idApp.displayChoices = function(array) {
    $('.windowA').toggleClass('windowA windowB').html(`
-   <form action="" class="displayChoices">
-   <fieldset class="resultsList">
-   </fieldset>
-   <button type="submit">Submit</button>
+   <form action="" class="displayChoices" id="displayChoices">
+      <fieldset class="resultsList">
+      </fieldset>
    </form>
+   <form action="" class="refreshOptions" id="refreshOptions">
+   </form>
+   <div class="buttonContainer">
+      <button type="submit" form="displayChoices">Submit</button>
+      <button type="submit" form="refreshOptions">Show Me More</button>
+   </div>
+   `)
+   $('.instructions').toggleClass('.instructions .windowB').html(`
+   New identity, new you! Select your choice and click 'Submit' to find out more about the new you! Click 'Show Me More' for more options!
    `)
 
    array.forEach(function(i) {
       const name = $('<h2>').text(i.name);
-      const dateBirth = $('<p>').text(i.dateBirth);
+      const dateBirth = $('<p>').html(`<span class='dobStyle'>Date of Birth:</span> ${i.dateBirth}`);
       const photo = $('<img>').attr({src: `${i.photo}`, alt: `User photo: ${i.name}`});
-      const labelInfoContainer = $('<div>').append(name, dateBirth, photo)
+      const textContainer = $('<div>').attr('class', 'textContainer').append(name, dateBirth)
+      const imageContainer = $('<div>').attr('class', 'imageContainer').append(photo)
+      const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer);
 
       const radioInput = $('<input>').attr({
       type: 'radio', 
@@ -89,7 +106,7 @@ idApp.displayChoices = function(array) {
       name: 'option', 
       value: `${i.id}`})
 
-      const radioLabel = $('<label>').attr('for', i.id).append(labelInfoContainer)
+      const radioLabel = $('<label>').attr('for', i.id).append(optionContainer);
 
       $('.resultsList').append(radioInput, radioLabel)
    })
