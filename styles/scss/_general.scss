@@ -10,7 +10,9 @@ h1, h2, h3, p, ul {
 }
 
 img {
-   width: 100%;
+   max-width: 100%;
+   display: block;
+   height: auto;
 }
 
 li {

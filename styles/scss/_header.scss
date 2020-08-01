@@ -1,14 +1,44 @@
 header {
    background-color: $bgColor;
-   min-height: 20vh;
+   min-height: 35vh;
    text-align: center;
+
+   .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+   }
    
    h1 {
-      @include fontStyle($decorFont, $fontMainColor, 5rem);
+      @include fontStyle($decorFont, $fontMainColor, 4rem);
       padding: 20px;
    }
 
    p {
-      @include fontStyle($bodyFont, $fontMainColor, 1.25rem);
+      @include fontStyle($bodyFont, $bgColor, 1rem);
+      background: $secondBgColor;
+      border-radius: 12px;
+      border: 2px solid $accentBlue;
+      width: 75%;
+      padding: 20px;
+
+      span {
+         font-weight: 700;
+      }
+
+      .important {
+         display: block;
+         margin-top: 10px;
+         padding: 2px 0;
+         background: $accentBlue;
+         border-radius: 8px;
+      }
+
+      .button {
+         text-transform: capitalize;
+         color: $accentRed;
+         font-family: $decorFont;
+         padding: 0 5px;
+      }
    }
 }

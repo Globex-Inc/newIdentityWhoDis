@@ -102,34 +102,39 @@ idApp.finalDisplay = function(array) {
    const { city, country, postcode, state, street } = location
 
    $('.windowB').toggleClass('windowB windowC').html(`
-      <section class="nameplate">
-         <div class="userPhoto">
-            <img src="${picture.large}" alt="user photo: ${name.first} ${name.last}">
-         </div>
-         <div class="userName">
-            <h2>${name.title} ${name.first} ${name.last}</h2>
-            <p>${gender}</p>
-            <p>${dob.date.substring(0, 10)}</p>
-         </div>
-      </section>
-      <section class="contactInfo">
-         <h3>- Contact Info -</h3>
-         <address>
-            <p>${street.number} ${street.name}</p>
-            <p>${city}, ${state}</p>
-            <p>${country} ${postcode}</p>
-         </address>
-         <p>${cell}</p>
-         <p>${email}</p>
-      </section>
-      <section class="socialMedia">
-         <h3>- New Social Media -</h3>
-         <p>${login.username}</p>
-         <p>${login.password}</p>
-      </section>
       <form>
+         <section class="nameplate">
+            <div class="userPhoto">
+               <img src="${picture.large}" alt="user photo: ${name.first} ${name.last}">
+            </div>
+            <div class="userName">
+               <h2>${name.title} ${name.first} ${name.last}</h2>
+               <p>${gender}</p>
+               <p>${dob.date.substring(0, 10)}</p>
+            </div>
+         </section>
+         <section class="contactInfo">
+            <h3>- Contact Info -</h3>
+            <address>
+               <p>Address:</p>
+               <p>${street.number} ${street.name}</p>
+               <p>${city}, ${state}</p>
+               <p>${country} ${postcode}</p>
+            </address>
+            <p><span>Phone:</span> ${cell}</p>
+            <p><span>Email:</span> ${email}</p>
+         </section>
+         <section class="socialMedia">
+            <h3>- New Social Media -</h3>
+            <p><span>Username:</span> ${login.username}</p>
+            <p><span>Password:</span> ${login.password}</p>
+         </section>
          <button type="submit">Reset</button>
       </form>
+   `)
+
+   $('.instructions').html(`
+   <span>Et Voila!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class="important">Click the <span class="button">reset button</span> at the bottom if you want to try again.</span>
    `)
 }
 
