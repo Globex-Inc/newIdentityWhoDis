@@ -21,13 +21,13 @@ $bodyFont: 'Open Sans', sans-serif;
    padding: 10px 25px;
    color: $fontMainColor;
    font-family: $decorFont;
-   border: $accentRed;
+   border: 2.5px solid $accentRed;
    border-radius: 12px;
    cursor: pointer;
 }
 
 @mixin buttonHover {
-   transform: scale(1);
+   transform: scaleX(1.06);
    border: 2.5px solid $accentVibrantRed;
 }
 

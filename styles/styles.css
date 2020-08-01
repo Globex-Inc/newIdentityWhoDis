@@ -236,7 +236,9 @@ h1, h2, h3, p, ul {
 }
 
 img {
-  width: 100%;
+  max-width: 100%;
+  display: block;
+  height: auto;
 }
 
 li {
@@ -258,25 +260,38 @@ button {
   padding: 10px 25px;
   color: #f1faee;
   font-family: "Nova Square", cursive;
-  border: #e63946;
+  border: 2.5px solid #e63946;
   border-radius: 12px;
   cursor: pointer;
 }
 
 button:hover, button:focus {
-  -webkit-transform: scale(1);
-          transform: scale(1);
+  -webkit-transform: scaleX(1.06);
+          transform: scaleX(1.06);
   border: 2.5px solid #d90429;
 }
 
 header {
   background-color: #0f1c2e;
-  min-height: 20vh;
+  min-height: 35vh;
   text-align: center;
 }
 
+header .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 header h1 {
-  font-size: 5rem;
+  font-size: 4rem;
   font-family: "Nova Square", cursive;
   font-weight: 400;
   color: #f1faee;
@@ -285,19 +300,44 @@ header h1 {
 }
 
 header p {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
-  color: #f1faee;
+  color: #0f1c2e;
   line-height: auto;
+  background: #78a5bf;
+  border-radius: 12px;
+  border: 2px solid #a8dadc;
+  width: 75%;
+  padding: 20px;
+}
+
+header p span {
+  font-weight: 700;
+}
+
+header p .important {
+  display: block;
+  margin-top: 10px;
+  padding: 2px 0;
+  background: #a8dadc;
+  border-radius: 8px;
+}
+
+header p .button {
+  text-transform: capitalize;
+  color: #e63946;
+  font-family: "Nova Square", cursive;
+  padding: 0 5px;
 }
 
 main {
   background: #0f1c2e;
+  padding: 20px 0;
 }
 
 .windowA {
-  height: 75vh;
+  height: 60vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -311,7 +351,7 @@ main {
 }
 
 .windowA .userInput {
-  min-height: 50%;
+  min-height: 65%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -326,17 +366,148 @@ main {
 }
 
 .windowA .userInput select {
-  background-color: #78a5bf;
+  color: #f1faee;
+  background-color: #a8dadc;
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   color: #0f1c2e;
   line-height: auto;
   text-align: center;
+  -webkit-box-shadow: -2px 2px #a8dadc;
+          box-shadow: -2px 2px #a8dadc;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 3px solid #0f1c2e;
+  border-radius: 12px;
+  background-image: url(../assets/noun_chevron_45902.png);
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: 97% center;
   width: calc(50% - 40px);
-  padding: 20px;
+  min-width: 375px;
+  padding: 10px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.windowA .userInput select:hover, .windowA .userInput select:focus {
+  border: 3px solid #a8dadc;
 }
 
 .windowA .userInput .submitButton {
   margin: 0 auto;
+}
+
+.windowB {
+  color: #f1faee;
+}
+
+.windowB img {
+  width: 100px;
+}
+
+.windowC {
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: #f1faee;
+  line-height: auto;
+  padding: 20px;
+  background: #78a5bf;
+  border-radius: 12px;
+}
+
+.windowC form {
+  border: 5px solid #0f1c2e;
+  border-radius: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.windowC form button {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin: 20px 0;
+}
+
+.windowC section {
+  padding: 20px;
+  position: relative;
+}
+
+.windowC section::after {
+  content: '';
+  background-color: #0f1c2e;
+  height: 2px;
+  position: absolute;
+  -webkit-box-shadow: -6px 6px #a8dadc;
+          box-shadow: -6px 6px #a8dadc;
+  bottom: 0;
+  right: 20px;
+  left: 20px;
+}
+
+.windowC section h2 {
+  color: #0f1c2e;
+}
+
+.windowC section h3 {
+  color: #0f1c2e;
+  padding: 10px;
+}
+
+.windowC section p {
+  margin: 5px 0 5px 20px;
+}
+
+.windowC section address {
+  margin-bottom: 20px;
+}
+
+.windowC section address p:first-of-type {
+  color: #0f1c2e;
+}
+
+.windowC section span {
+  color: #0f1c2e;
+}
+
+.windowC .nameplate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.windowC .nameplate .userPhoto {
+  margin-right: 20px;
+  background: #a8dadc;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.windowC .nameplate .userPhoto img {
+  border-radius: 50%;
+  width: 175px;
+}
+
+.windowC .userName {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  text-transform: capitalize;
+}
+
+.windowC .userName p {
+  margin: 0;
+}
+
+.windowC .userName p:first-of-type {
+  margin: 5px 0;
 }

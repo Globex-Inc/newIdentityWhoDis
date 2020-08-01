@@ -1,0 +1,112 @@
+.windowB {
+   color: $fontMainColor;
+   img {
+      width: 100px;
+   }
+}
+
+.windowC {
+   @include fontStyle($bodyFont, $fontMainColor, 1rem);
+   padding: 20px;
+   background: $secondBgColor;
+   border-radius: 12px;
+
+   form {
+      border: 5px solid $bgColor;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+
+      button {
+         align-self: center;
+         margin: 20px 0;
+      }
+   }
+
+   section {
+      padding: 20px;
+      position: relative;
+
+      &::after {
+         content: '';
+         background-color: $bgColor;
+         height: 2px;
+         position: absolute;
+         box-shadow: -6px 6px $accentBlue;
+         bottom: 0;
+         right: 20px;
+         left: 20px;
+      }
+
+      h2 {
+         color: $bgColor;
+      }
+
+      h3 {
+         color: $bgColor;
+         padding: 10px;
+      }
+
+      p {
+         margin: 5px 0 5px 20px;
+      }
+
+      address {
+         margin-bottom: 20px;
+
+         p:first-of-type {
+            color: $bgColor;
+         }
+      }
+
+      span {
+         color: $bgColor;
+      }
+   }
+
+   .nameplate {
+      display: flex;
+      
+      .userPhoto {
+         margin-right: 20px;
+         background: $accentBlue;
+         border-radius: 50%;
+         padding: 10px;
+         
+         img {
+            border-radius: 50%;
+            width: 175px;
+         }
+      }
+   }
+
+   .userName {
+      align-self: flex-end;
+      text-transform: capitalize;
+
+      p {
+         margin: 0;
+      }
+
+      p:first-of-type {
+         margin: 5px 0;
+      }
+   }
+
+   // .contactInfo, 
+   // .socialMedia {
+   //    width: 100%;
+   //    position: relative;
+
+   //    &::before {
+   //       content: '';
+   //       background-color: $bgColor;
+   //       height: 2px;
+   //       position: absolute;
+   //       top: 5px;
+   //       right: 20px;
+   //       left: 20px;
+   //    }
+   // }
+
+}
