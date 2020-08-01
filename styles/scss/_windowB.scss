@@ -1,0 +1,80 @@
+.windowB {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    fieldset {
+        display: flex;
+        flex-wrap: wrap;
+        border: none;
+        padding-bottom: 50px;
+
+        h2 {
+            margin: 10px 0;
+            @include fontStyle($decorFont, $accentVibrantRed, 1.3rem, $weight: 400, $lineHeight: auto)
+        }
+
+        p {
+            @include fontStyle($bodyFont, $fontMainColor, 1rem, $weight: 400, $lineHeight: auto)
+        }
+
+        .dobStyle {
+            color: $bgColor;
+        }
+
+        input[type='radio'] {
+            opacity: 0;
+        }
+
+        label {
+            background-color: $secondBgColor;
+            border: 2.5px $secondBgColor solid;
+            border-radius: 12px;
+            box-shadow: 15px 15px 0px $accentBlue;
+            display: block;
+            margin: 25px auto;
+            padding-left: 20px;
+            width: 80%; // can change this to fixed pixel width and have it wrap for a diff layout!
+        }
+
+        label:hover,
+        input[type='radio']:focus + label,
+        input[type=radio]:checked + label {
+            border:  2.5px $accentRed solid;
+            background-color: $accentRed;
+            cursor: pointer;
+            h2 {
+                color: $bgColor;
+            }
+            transition: all 0.5s;
+        }
+
+        .optionContainer {
+        display: flex;
+        align-items: center;
+        margin: 20px;
+        .imageContainer {
+            margin-right: 20px;
+            background: $accentBlue;
+            border-radius: 50%;
+            padding: 10px;
+        }
+        img {
+            border-radius: 50%;
+            width: 175px;
+        }
+        }
+        
+        .textContainer {
+            margin-left: 50px;
+        }
+
+        button {
+            margin: 100px;
+            display: inline-block;
+        }
+
+    }
+
+    padding-bottom: 50px;
+}

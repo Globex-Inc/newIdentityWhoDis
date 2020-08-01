@@ -23,6 +23,16 @@ address {
    font-style: normal;
 }
 
+a {
+   color: $fontMainColor;
+   text-decoration: none;
+
+   &:hover,
+   &:focus {
+      color: $accentVibrantRed;
+   }
+}
+
 .wrapper {
    max-width: 1200px;
    width: 95%;
