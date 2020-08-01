@@ -1,10 +1,3 @@
-.windowB {
-   color: $fontMainColor;
-   img {
-      width: 100px;
-   }
-}
-
 .windowC {
    @include fontStyle($bodyFont, $fontMainColor, 1rem);
    padding: 20px;

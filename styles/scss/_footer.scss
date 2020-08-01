@@ -1,0 +1,6 @@
+footer {
+    @include fontStyle ($bodyFont, $fontMainColor, 1rem, $weight: 400, $lineHeight: auto);
+    background-color: $secondBgColor;
+    padding: 15px 0;
+    text-align: center;
+}
