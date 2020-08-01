@@ -53,10 +53,15 @@
         display: flex;
         align-items: center;
         margin: 20px;
-        img {
-            border: 2px solid $bgColor;
+        .imageContainer {
+            margin-right: 20px;
+            background: $accentBlue;
             border-radius: 50%;
-            margin: 0 auto;
+            padding: 10px;
+        }
+        img {
+            border-radius: 50%;
+            width: 175px;
         }
         }
         
