@@ -27,7 +27,7 @@ $bodyFont: 'Open Sans', sans-serif;
 }
 
 @mixin buttonHover {
-   transform: scale(1);
+   transform: scaleX(1.06);
    border: 2.5px solid $accentVibrantRed;
 }
 
