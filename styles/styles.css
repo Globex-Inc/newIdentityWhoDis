@@ -237,8 +237,8 @@ h1, h2, h3, p, ul {
 
 img {
   max-width: 100%;
-  display: block;
   height: auto;
+  display: block;
 }
 
 li {
@@ -398,14 +398,6 @@ main {
 
 .windowA .userInput .submitButton {
   margin: 0 auto;
-}
-
-.windowB {
-  color: #f1faee;
-}
-
-.windowB img {
-  width: 100px;
 }
 
 .windowC {
