@@ -6,32 +6,61 @@ idApp.eventListeners = function() {
    // Event Listener #1 - for when the user first submits their preferred region/gender
    $('form').on('submit', function(event){
       event.preventDefault();
-      // Store the user's chosen gender and region in variables
-      const userGender = $('#gender option:checked').val()
-      const userRegion = $('#regions option:checked').val()
-      // Call the API function, passing in the user's choices as arguments 
-      idApp.apiCall(userGender, userRegion);
+      // Cache the user's chosen gender and region (can be re-used again in second API call)
+      $userGender = $('#gender option:checked').val()
+      $userRegion = $('#regions option:checked').val()
+      // Error Handling - for if user does not choose any options 
+      if (!$userGender || !$userRegion) {
+         $('.errorContainer').html(`<p>Oops! You forgot to fill something in!</p>`);
+      } else {
+         // Call the API function, passing in the user's choices as arguments 
+         idApp.apiCall($userGender, $userRegion);
+      }
    })
 
-   // Event Listener #2 - for when the user submits their final choice of identity
+   // Event Listener #2 - to clear error message on Window A 
+   $('select').on('change', function() {
+      $('.errorContainer').empty();
+   })
+
+   // Event Listener #3 - for when the user submits their chosen identity
    $('main').on('submit', '.displayChoices', function(event) {
       event.preventDefault();
       // Store the user's final selection in a variable 
       const userFinalSelection = $('input[name="option"]:checked').val();
-      // Filter through the idApp.apiResults array to find a match for the user's final selection; store in new array finalResult 
-      const finalResult = idApp.apiResults.filter(function(selectedChoice) {
-         return selectedChoice.login.salt === userFinalSelection;
-      })
-      // Call the idApp.finalDisplay function, passing in finalResult array as an argument 
-      idApp.finalDisplay(finalResult);
+      //Error Handling - for if user clicks 'Next' without choosing an option
+      if (!userFinalSelection) {
+         $('.errorContainer').html(`<p>Please choose an identity!</>`);
+      } else {
+         // Filter through the idApp.apiResults array to find a match for the user's final selection; store in new array finalResult 
+         const finalResult = idApp.apiResults.filter(function(selectedChoice) {
+            return selectedChoice.login.salt === userFinalSelection;
+         })
+         // Call the idApp.finalDisplay function, passing in finalResult array as an argument 
+         idApp.finalDisplay(finalResult);
+      }
    })
 
-   // Event Listener #3 - for when user hits the "Show Me More" button
+   // Event Listener #4 - to clear error message on Window B
+   $('main').on('change','.displayChoices', function() {
+      $('.errorContainer').empty();
+   })
+
+   // Event Listener #5 - for when user clicks the 'Show More' button - API function is called again, and page scrolls to the top 
    $('main').on('submit', '.refreshOptions', function(event) {
       event.preventDefault();
-      $('.resultsList').html('');
-      idApp.apiCall();
+      idApp.apiCall($userGender, $userRegion);
+      $('html, body').animate({
+         scrollTop: 0
+      }, 700);
    });
+
+   // Event Listener #6 - for when the user clicks the 'Back' button on the last page (takes them back to the selection window)
+   $('main').on('submit', '.backToWindowB', function(event) {
+      event.preventDefault();
+      console.log('clicked!');
+      // window.history.back();
+   })
 }
 
 // Empty array to store the API results in
@@ -76,21 +105,29 @@ idApp.listOfNames = function(results){
 
 // Function for displaying the 15 choices on the DOM 
 idApp.displayChoices = function(array) {
+   $('.instructions').html(`
+   Sweet, now you've got some options to work with! <span class='important'>Choose an identity, and click <span class='button'>Next</span> to find out more about the new you! <br> Don't see anything you like? Click <span class='button'>Show Me More</span> to refresh the list. We got you.</span> 
+   `)
+
    $('.windowA').toggleClass('windowA windowB').html(`
-   <form action="" class="displayChoices" id="displayChoices">
-      <fieldset class="resultsList">
+   <form action='' class='displayChoices' id='displayChoices'>
+      <fieldset class='resultsList'>
       </fieldset>
    </form>
-   <form action="" class="refreshOptions" id="refreshOptions">
+   <form action='' class='refreshOptions' id='refreshOptions'>
    </form>
-   <div class="buttonContainer">
-      <button type="submit" form="displayChoices">Submit</button>
-      <button type="submit" form="refreshOptions">Show Me More</button>
+   <form action='' class='goBack' id='goBack'>
+   </form>
+   <div class='buttonContainer'>
+      <button type='submit' form='goBack'>Back</button>
+      <button type='submit' form='refreshOptions' id='top'>Show Me More</button>
+      <button type='submit' form='displayChoices'>Next</button>
+   </div>
+   <div class='errorContainer'>
    </div>
    `)
-   $('.instructions').toggleClass('.instructions .windowB').html(`
-   New identity, new you! Select your choice and click 'Submit' to find out more about the new you! Click 'Show Me More' for more options!
-   `)
+
+   $('.resultsList').empty();
 
    array.forEach(function(i) {
       const name = $('<h2>').text(i.name);
@@ -99,16 +136,14 @@ idApp.displayChoices = function(array) {
       const textContainer = $('<div>').attr('class', 'textContainer').append(name, dateBirth)
       const imageContainer = $('<div>').attr('class', 'imageContainer').append(photo)
       const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer);
-
       const radioInput = $('<input>').attr({
       type: 'radio', 
       id: `${i.id}`, 
       name: 'option', 
       value: `${i.id}`})
-
       const radioLabel = $('<label>').attr('for', i.id).append(optionContainer);
 
-      $('.resultsList').append(radioInput, radioLabel)
+      $('.resultsList').append(radioInput, radioLabel);
    })
 }
 
@@ -119,21 +154,21 @@ idApp.finalDisplay = function(array) {
    const { city, country, postcode, state, street } = location
 
    $('.windowB').toggleClass('windowB windowC').html(`
-      <div class="border">
-         <section class="nameplate">
-            <div class="userPhoto">
-               <img src="${picture.large}" alt="user photo: ${name.first} ${name.last}">
+      <div class='border'>
+         <section class='nameplate'>
+            <div class='userPhoto'>
+               <img src='${picture.large}' alt='user photo: ${name.first} ${name.last}'>
             </div>
-            <div class="userName">
+            <div class='userName'>
                <h2>${name.title} ${name.first} ${name.last}</h2>
                <p>${gender}</p>
                <p>${dob.date.substring(0, 10)}</p>
             </div>
          </section>
-         <section class="contactInfo">
-            <input type="checkbox" id="contactInfo" name="dropdown" class="checkbox srOnly">
-            <label for="contactInfo" class="profileHeader">- Contact Information -</label>
-            <div class="hiddenContents">
+         <section class='contactInfo'>
+            <input type='checkbox' id='contactInfo' name='dropdown' class='checkbox srOnly'>
+            <label for='contactInfo' class='profileHeader'>- Contact Information -</label>
+            <div class='hiddenContents'>
                <address>
                   <p>Address:</p>
                   <p>${street.number} ${street.name}</p>
@@ -144,22 +179,25 @@ idApp.finalDisplay = function(array) {
                <p><span>Email:</span> ${email}</p>
             </div>
          </section>
-         <section class="socialMedia">
-            <input type="checkbox" id="newSocials" name="dropdown" class="checkbox srOnly">
-            <label for="newSocials" class="profileHeader">- New Social Media -</label>
-            <div class="hiddenContents">
+         <section class='socialMedia'>
+            <input type='checkbox' id='newSocials' name='dropdown' class='checkbox srOnly'>
+            <label for='newSocials' class='profileHeader'>- New Social Media -</label>
+            <div class='hiddenContents'>
                <p><span>Username:</span> ${login.username}</p>
                <p><span>Password:</span> ${login.password}</p>
             </div>
          </section>
+         <form class='backToWindowB'>
+            <button type='submit'>Back</button>
+         </form>
          <form>
-            <button type="submit">Reset</button>
+            <button type='submit'>Reset</button>
          </form>
       </div>
    `)
 
    $('.instructions').html(`
-   <span>Et Voila!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class="important">Click the <span class="button">reset button</span> at the bottom if you want to try again.</span>
+   <span>Et voilà!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'>reset button</span> at the bottom if you want to try again.</span>
    `)
 
    //scroll to top of window during transition from windowB to windowC
