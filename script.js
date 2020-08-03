@@ -3,6 +3,9 @@ const idApp = {};
 
 // Event Listeners Function  
 idApp.eventListeners = function() {
+   //Cache $('main') jQuery selector as we will repeatedly use it
+   $main = $('main');
+
    // Event Listener #1 (Window A) - for when the user first submits their preferred region/gender
    $('form').on('submit', function(event){
       event.preventDefault();
@@ -24,7 +27,7 @@ idApp.eventListeners = function() {
    })
 
    // Event Listener #3 (Window B) - for when the user submits their chosen identity
-   $('main').on('submit', '.displayChoices', function(event) {
+   $main.on('submit', '.displayChoices', function(event) {
       event.preventDefault();
       // Store the user's final selection in a variable 
       const userFinalSelection = $('input[name="option"]:checked').val();
@@ -42,19 +45,21 @@ idApp.eventListeners = function() {
    })
 
    // Event Listener #4 (Window B) - to clear error message
-   $('main').on('click','input[name="option"]', function() {
+   $main.on('click','input[name="option"]', function() {
       $('.errorContainer').empty();
    })
 
    // Event Listener #5 (Window B) - for when user clicks the 'Show More' button to refresh results - API function is called again, and page scrolls to the top 
-   $('main').on('submit', '.refreshOptions', function(event) {
+   $main.on('submit', '.refreshOptions', function(event) {
       event.preventDefault();
       idApp.apiCall($userGender, $userRegion);
-      window.scrollTo(0,0);
+      $('html, body').animate({
+         scrollTop: 0
+         }, 800);
    });
 
    // Event Listener #6 (Window C) - for when the user clicks the 'Back' button to go back to Window B
-   $('main').on('submit', '.backToWindowB', function(event) {
+   $main.on('submit', '.backToWindowB', function(event) {
       event.preventDefault();
       idApp.backToWindowB(idApp.resultsList);
       window.scrollTo(0,0);
