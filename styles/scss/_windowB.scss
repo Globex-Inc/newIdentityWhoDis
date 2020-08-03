@@ -39,7 +39,7 @@
 
         label:hover,
         input[type='radio']:focus + label,
-        input[type=radio]:checked + label {
+        input[type='radio']:checked + label {
             border:  2.5px $accentRed solid;
             background-color: $accentRed;
             cursor: pointer;

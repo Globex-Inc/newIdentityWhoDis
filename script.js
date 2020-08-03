@@ -3,7 +3,7 @@ const idApp = {};
 
 // Event Listeners Function  
 idApp.eventListeners = function() {
-   // Event Listener #1 - for when the user first submits their preferred region/gender
+   // Event Listener #1 (Window A) - for when the user first submits their preferred region/gender
    $('form').on('submit', function(event){
       event.preventDefault();
       // Cache the user's chosen gender and region (can be re-used again in second API call)
@@ -18,12 +18,12 @@ idApp.eventListeners = function() {
       }
    })
 
-   // Event Listener #2 - to clear error message on Window A 
+   // Event Listener #2 (Window A) - to clear error message
    $('select').on('change', function() {
       $('.errorContainer').empty();
    })
 
-   // Event Listener #3 - for when the user submits their chosen identity
+   // Event Listener #3 (Window B) - for when the user submits their chosen identity
    $('main').on('submit', '.displayChoices', function(event) {
       event.preventDefault();
       // Store the user's final selection in a variable 
@@ -41,25 +41,23 @@ idApp.eventListeners = function() {
       }
    })
 
-   // Event Listener #4 - to clear error message on Window B
-   $('main').on('change','.displayChoices', function() {
+   // Event Listener #4 (Window B) - to clear error message
+   $('main').on('click','input[name="option"]', function() {
       $('.errorContainer').empty();
    })
 
-   // Event Listener #5 - for when user clicks the 'Show More' button - API function is called again, and page scrolls to the top 
+   // Event Listener #5 (Window B) - for when user clicks the 'Show More' button to refresh results - API function is called again, and page scrolls to the top 
    $('main').on('submit', '.refreshOptions', function(event) {
       event.preventDefault();
       idApp.apiCall($userGender, $userRegion);
-      $('html, body').animate({
-         scrollTop: 0
-      }, 700);
+      window.scrollTo(0,0);
    });
 
-   // Event Listener #6 - for when the user clicks the 'Back' button on the last page (takes them back to the selection window)
+   // Event Listener #6 (Window C) - for when the user clicks the 'Back' button to go back to Window B
    $('main').on('submit', '.backToWindowB', function(event) {
       event.preventDefault();
-      console.log('clicked!');
-      // window.history.back();
+      idApp.backToWindowB(idApp.resultsList);
+      window.scrollTo(0,0);
    })
 }
 
@@ -87,10 +85,10 @@ idApp.apiCall = function(gender, region) {
    })
 }
 
-// Function to pull out data (name, DOB, photo, ID) for the 15 identity choices
+// Function to pull out specific data for the 15 identity choices
 idApp.listOfNames = function(results){
-   // Store results in new array called resultsList
-   const resultsList = results.map(function(i) {
+   // Store results in new global array called idApp.resultsList
+   idApp.resultsList = results.map(function(i) {
       const identity = {
          name: `${i.name.title} ${i.name.first} ${i.name.last}`,
          dateBirth: i.dob.date.substring(0, 10),
@@ -99,17 +97,17 @@ idApp.listOfNames = function(results){
       };
       return identity
    })
-   // Call the idApp.displayChoices function, passing in resultsList array as an argument 
-   idApp.displayChoices(resultsList);
+   // Call the idApp.displayChoices function, passing in idApp.resultsList array as an argument 
+   idApp.displayChoices(idApp.resultsList);
 }
 
 // Function for displaying the 15 choices on the DOM 
 idApp.displayChoices = function(array) {
-   $('.instructions').html(`
-   Sweet, now you've got some options to work with! <span class='important'>Choose an identity, and click <span class='button'>Next</span> to find out more about the new you! <br> Don't see anything you like? Click <span class='button'>Show Me More</span> to refresh the list. We got you.</span> 
-   `)
+   idApp.windowBInstructions = `Sweet, now you've got some options to work with! <span class='important'>Choose an identity, and click <span class='button'>Next</span> to find out more about the new you! <br> Don't see anything you like? Click <span class='button'>Show Me More</span> to refresh the list. We got you.</span>`
 
-   $('.windowA').toggleClass('windowA windowB').html(`
+   $('.instructions').html(idApp.windowBInstructions);
+
+   idApp.windowBContent = `
    <form action='' class='displayChoices' id='displayChoices'>
       <fieldset class='resultsList'>
       </fieldset>
@@ -125,7 +123,8 @@ idApp.displayChoices = function(array) {
    </div>
    <div class='errorContainer'>
    </div>
-   `)
+   `
+   $('.windowA').toggleClass('windowA windowB').html(idApp.windowBContent);
 
    $('.resultsList').empty();
 
@@ -147,7 +146,31 @@ idApp.displayChoices = function(array) {
    })
 }
 
-// Function to display the full bio of the user's chosen identity (name/gender/location/email/username/password/DOB/phone number/photo)
+// Function for when user clicks the "Back" button on Window C to go back to Window B (displays choices again)
+idApp.backToWindowB = function(array) {
+   $('.instructions').html(idApp.windowBInstructions)
+   $('.windowC').toggleClass('windowC windowB').html(idApp.windowBContent);
+   $('.resultsList').empty();
+
+   array.forEach(function(i) {
+      $('.resultsList').append(`
+      <input type="radio" id="${i.id}" name="option" value="${i.id}">
+      <label for="${i.id}" class="optionLabel">
+         <div class="optionContainer">
+            <div class="imageContainer">
+               <img src="${i.photo}" alt="User photo: ${i.name}">
+            </div>
+            <div class="textContainer">
+               <h2>${i.name}</h2>
+               <p><span class="dobStyle">Date of Birth:</span> ${i.dateBirth}</p>
+            </div>
+         </div>
+      </label>
+      `)
+   })
+}
+
+// Function to display the full bio of the user's chosen identity
 idApp.finalDisplay = function(array) {
    const finalChoiceObject = array[0]
    const { cell, dob, email, gender, location, login, name, picture } = finalChoiceObject

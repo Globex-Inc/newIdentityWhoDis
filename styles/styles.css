@@ -482,7 +482,7 @@ main {
 
 .windowB fieldset label:hover,
 .windowB fieldset input[type='radio']:focus + label,
-.windowB fieldset input[type=radio]:checked + label {
+.windowB fieldset input[type='radio']:checked + label {
   border: 2.5px #e63946 solid;
   background-color: #e63946;
   cursor: pointer;
@@ -492,7 +492,7 @@ main {
 
 .windowB fieldset label:hover h2,
 .windowB fieldset input[type='radio']:focus + label h2,
-.windowB fieldset input[type=radio]:checked + label h2 {
+.windowB fieldset input[type='radio']:checked + label h2 {
   color: #0f1c2e;
 }
 
