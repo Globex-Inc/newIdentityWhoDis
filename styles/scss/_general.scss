@@ -54,3 +54,21 @@ button {
    margin: 0 auto;
 }
 
+// Styles for the hidden and displayed divs in windowB and windowC (on click or checked)
+   .hiddenContents {
+      max-height: 0px;
+      overflow: hidden;
+      transition: max-height .1s;
+   }
+
+   .displayContents,
+   .checkbox:checked ~ .hiddenContents {
+      margin-top: 10px;
+      max-height: 500px;
+      transition: max-height .5s;
+   }
+
+   .checkbox:focus + label {
+      background: $accentBlue;
+   }
+

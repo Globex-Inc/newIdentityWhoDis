@@ -44,6 +44,21 @@ idApp.eventListeners = function() {
       }
    })
 
+   // Event Listener #3A for when any radio input is selected to display a div with some more info
+   $main.on('click', '.optionContainer', function () {
+      $('.hiddenContents').removeClass('displayContents');
+      $('.fa-plus').removeClass('active')
+      $(this).find('.hiddenContents').toggleClass('displayContents');
+      $(this).parent('.windowBLabel').find('.fa-plus').addClass('active')
+   })
+
+   // Event Listener #3B to hide the extra info by clicking the X button
+   $main.on('click', '.fa-plus', function() {
+      $(this).toggleClass('active');
+      $(this).siblings('.optionContainer').find('.hiddenContents').toggleClass('displayContents')
+   })
+   
+
    // Event Listener #4 (Window B) - to clear error message
    $main.on('click','input[name="option"]', function() {
       $('.errorContainer').empty();
@@ -140,13 +155,14 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
       const textContainer = $('<div>').attr('class', 'textContainer').append(name, dateBirth)
       const imageContainer = $('<div>').attr('class', 'imageContainer').append(photo)
       const hiddenStuffs = $('<div>').attr('class', 'hiddenContents').text('Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit ducimus dolorem magnam nesciunt nostrum. Voluptatibus, soluta. Unde, porro deserunt vero, ipsum error illo quod quidem voluptatum dolorum voluptas alias aperiam!')
+      const closeButton = $('<i>').attr('class', 'fas fa-plus')
       const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer, hiddenStuffs);
       const radioInput = $('<input>').attr({
       type: 'radio', 
       id: `${i.id}`, 
       name: 'option', 
       value: `${i.id}`})
-      const radioLabel = $('<label>').attr('for', i.id).attr('class', 'windowBLabel').append(optionContainer);
+      const radioLabel = $('<label>').attr('for', i.id).attr('class', 'windowBLabel').append(optionContainer, closeButton);
       
       $('.resultsList').append(radioInput, radioLabel);
    })

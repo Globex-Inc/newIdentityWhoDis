@@ -290,6 +290,25 @@ button:hover, button:focus {
   margin: 0 auto;
 }
 
+.hiddenContents {
+  max-height: 0px;
+  overflow: hidden;
+  -webkit-transition: max-height .1s;
+  transition: max-height .1s;
+}
+
+.displayContents,
+.checkbox:checked ~ .hiddenContents {
+  margin-top: 10px;
+  max-height: 500px;
+  -webkit-transition: max-height .5s;
+  transition: max-height .5s;
+}
+
+.checkbox:focus + label {
+  background: #a8dadc;
+}
+
 header {
   background-color: #0f1c2e;
   min-height: 35vh;
@@ -478,6 +497,7 @@ main {
   margin: 25px auto;
   padding-left: 20px;
   width: 80%;
+  position: relative;
 }
 
 .windowB fieldset label:hover,
@@ -500,6 +520,8 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -520,6 +542,37 @@ main {
 
 .windowB fieldset .textContainer {
   margin-left: 50px;
+}
+
+.windowB fieldset .displayContents::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: #a8dadc;
+  margin: 10px 0 20px 0;
+}
+
+.windowB .fa-plus {
+  position: absolute;
+  color: #f1faee;
+  font-size: 2rem;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  padding: 10px;
+  -webkit-transition: -webkit-transform .5s;
+  transition: -webkit-transform .5s;
+  transition: transform .5s;
+  transition: transform .5s, -webkit-transform .5s;
+}
+
+.windowB .active {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-transition: -webkit-transform .5s;
+  transition: -webkit-transform .5s;
+  transition: transform .5s;
+  transition: transform .5s, -webkit-transform .5s;
 }
 
 .windowB .buttonContainer {
@@ -650,24 +703,6 @@ main {
 .windowC .profileHeader:hover {
   background-color: #a8dadc;
   border-radius: 12px;
-}
-
-.windowC .hiddenContents {
-  max-height: 1px;
-  overflow: hidden;
-  -webkit-transition: max-height .1s;
-  transition: max-height .1s;
-}
-
-.windowC .checkbox:checked ~ .hiddenContents {
-  margin-top: 10px;
-  max-height: 500px;
-  -webkit-transition: max-height .5s;
-  transition: max-height .5s;
-}
-
-.windowC .checkbox:focus + label {
-  background: #a8dadc;
 }
 
 footer {

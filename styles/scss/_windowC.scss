@@ -98,21 +98,4 @@
          border-radius: 12px;
       }
    }
-
-   .hiddenContents {
-      max-height: 1px;
-      overflow: hidden;
-      transition: max-height .1s;
-   }
-
-   .checkbox:checked ~ .hiddenContents {
-      margin-top: 10px;
-      max-height: 500px;
-      transition: max-height .5s;
-   }
-
-   .checkbox:focus + label {
-      background: $accentBlue;
-   }
-
 }
