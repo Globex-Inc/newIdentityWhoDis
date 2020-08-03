@@ -11,11 +11,11 @@
 
         h2 {
             margin: 10px 0;
-            @include fontStyle($decorFont, $accentVibrantRed, 1.3rem, $weight: 400, $lineHeight: auto)
+            @include fontStyle($decorFont, $accentVibrantRed, 1.3rem)
         }
 
         p {
-            @include fontStyle($bodyFont, $fontMainColor, 1rem, $weight: 400, $lineHeight: auto)
+            @include fontStyle($bodyFont, $fontMainColor, 1rem)
         }
 
         .dobStyle {
@@ -39,7 +39,7 @@
 
         label:hover,
         input[type='radio']:focus + label,
-        input[type=radio]:checked + label {
+        input[type='radio']:checked + label {
             border:  2.5px $accentRed solid;
             background-color: $accentRed;
             cursor: pointer;
@@ -61,19 +61,22 @@
         }
         img {
             border-radius: 50%;
-            width: 175px;
+            width: 125px;
         }
         }
         
         .textContainer {
             margin-left: 50px;
         }
+    }
 
+    .buttonContainer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
         button {
-            margin: 100px;
-            display: inline-block;
+            margin: 30px;
         }
-
     }
 
     padding-bottom: 50px;

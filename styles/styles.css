@@ -280,6 +280,16 @@ button:hover, button:focus {
   border: 2.5px solid #d90429;
 }
 
+.errorContainer {
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: #e63946;
+  line-height: auto;
+  height: 10px;
+  margin: 0 auto;
+}
+
 header {
   background-color: #0f1c2e;
   min-height: 35vh;
@@ -472,7 +482,7 @@ main {
 
 .windowB fieldset label:hover,
 .windowB fieldset input[type='radio']:focus + label,
-.windowB fieldset input[type=radio]:checked + label {
+.windowB fieldset input[type='radio']:checked + label {
   border: 2.5px #e63946 solid;
   background-color: #e63946;
   cursor: pointer;
@@ -482,7 +492,7 @@ main {
 
 .windowB fieldset label:hover h2,
 .windowB fieldset input[type='radio']:focus + label h2,
-.windowB fieldset input[type=radio]:checked + label h2 {
+.windowB fieldset input[type='radio']:checked + label h2 {
   color: #0f1c2e;
 }
 
@@ -505,16 +515,26 @@ main {
 
 .windowB fieldset .optionContainer img {
   border-radius: 50%;
-  width: 175px;
+  width: 125px;
 }
 
 .windowB fieldset .textContainer {
   margin-left: 50px;
 }
 
-.windowB fieldset button {
-  margin: 100px;
-  display: inline-block;
+.windowB .buttonContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.windowB .buttonContainer button {
+  margin: 30px;
 }
 
 .windowC {
