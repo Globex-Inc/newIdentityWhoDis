@@ -61,7 +61,7 @@ idApp.eventListeners = function() {
    // Event Listener #6 (Window C) - for when the user clicks the 'Back' button to go back to Window B
    $main.on('submit', '.backToWindowB', function(event) {
       event.preventDefault();
-      idApp.backToWindowB(idApp.resultsList);
+      idApp.displayChoices(idApp.resultsList, 'windowC', 'windowB');
       window.scrollTo(0,0);
    })
 }
@@ -76,7 +76,7 @@ idApp.apiCall = function(gender, region) {
       method: 'GET',
       dataType: 'json',
       data: {
-         results: 15,
+         results: 10,
          gender: gender,
          nat: region,
       }
@@ -90,7 +90,7 @@ idApp.apiCall = function(gender, region) {
    })
 }
 
-// Function to pull out specific data for the 15 identity choices
+// Function to pull out specific data for the 10 identity choices
 idApp.listOfNames = function(results){
    // Store results in new global array called idApp.resultsList
    idApp.resultsList = results.map(function(i) {
@@ -103,11 +103,11 @@ idApp.listOfNames = function(results){
       return identity
    })
    // Call the idApp.displayChoices function, passing in idApp.resultsList array as an argument 
-   idApp.displayChoices(idApp.resultsList);
+   idApp.displayChoices(idApp.resultsList, 'windowA', 'windowB');
 }
 
-// Function for displaying the 15 choices on the DOM 
-idApp.displayChoices = function(array) {
+// Function for displaying the 10 choices on the DOM 
+idApp.displayChoices = function(array, currentWindow, nextWindow) {
    idApp.windowBInstructions = `Sweet, now you've got some options to work with! <span class='important'>Choose an identity, and click <span class='button'>Next</span> to find out more about the new you! <br> Don't see anything you like? Click <span class='button'>Show Me More</span> to refresh the list. We got you.</span>`
 
    $('.instructions').html(idApp.windowBInstructions);
@@ -129,7 +129,7 @@ idApp.displayChoices = function(array) {
    <div class='errorContainer'>
    </div>
    `
-   $('.windowA').toggleClass('windowA windowB').html(idApp.windowBContent);
+   $(`.${currentWindow}`).toggleClass(`${currentWindow} ${nextWindow}`).html(idApp.windowBContent);
 
    $('.resultsList').empty();
 
@@ -139,39 +139,16 @@ idApp.displayChoices = function(array) {
       const photo = $('<img>').attr({src: `${i.photo}`, alt: `User photo: ${i.name}`});
       const textContainer = $('<div>').attr('class', 'textContainer').append(name, dateBirth)
       const imageContainer = $('<div>').attr('class', 'imageContainer').append(photo)
-      const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer);
+      const hiddenStuffs = $('<div>').attr('class', 'hiddenContents').text('Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit ducimus dolorem magnam nesciunt nostrum. Voluptatibus, soluta. Unde, porro deserunt vero, ipsum error illo quod quidem voluptatum dolorum voluptas alias aperiam!')
+      const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer, hiddenStuffs);
       const radioInput = $('<input>').attr({
       type: 'radio', 
       id: `${i.id}`, 
       name: 'option', 
       value: `${i.id}`})
-      const radioLabel = $('<label>').attr('for', i.id).append(optionContainer);
-
+      const radioLabel = $('<label>').attr('for', i.id).attr('class', 'windowBLabel').append(optionContainer);
+      
       $('.resultsList').append(radioInput, radioLabel);
-   })
-}
-
-// Function for when user clicks the "Back" button on Window C to go back to Window B (displays choices again)
-idApp.backToWindowB = function(array) {
-   $('.instructions').html(idApp.windowBInstructions)
-   $('.windowC').toggleClass('windowC windowB').html(idApp.windowBContent);
-   $('.resultsList').empty();
-
-   array.forEach(function(i) {
-      $('.resultsList').append(`
-      <input type="radio" id="${i.id}" name="option" value="${i.id}">
-      <label for="${i.id}" class="optionLabel">
-         <div class="optionContainer">
-            <div class="imageContainer">
-               <img src="${i.photo}" alt="User photo: ${i.name}">
-            </div>
-            <div class="textContainer">
-               <h2>${i.name}</h2>
-               <p><span class="dobStyle">Date of Birth:</span> ${i.dateBirth}</p>
-            </div>
-         </div>
-      </label>
-      `)
    })
 }
 
