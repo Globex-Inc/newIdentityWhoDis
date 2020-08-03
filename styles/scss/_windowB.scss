@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 50px;
 
     fieldset {
         display: flex;
@@ -35,6 +36,7 @@
             margin: 25px auto;
             padding-left: 20px;
             width: 80%; // can change this to fixed pixel width and have it wrap for a diff layout!
+            position: relative;
         }
 
         label:hover,
@@ -51,6 +53,7 @@
 
         .optionContainer {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         margin: 20px;
         .imageContainer {
@@ -68,6 +71,32 @@
         .textContainer {
             margin-left: 50px;
         }
+
+        .displayContents{
+            &::before {
+                content: '';
+                display: block;
+                height: 3px;
+                background: $accentBlue;
+                margin: 10px 0 20px 0;
+            }
+        }        
+    }
+
+    .fa-plus {
+    position: absolute;
+    color: $fontMainColor;
+    font-size: 2rem;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    padding: 10px;
+    transition: transform .5s;
+    }
+    
+    .active {
+        transform: rotate(45deg);
+        transition: transform .5s;
     }
 
     .buttonContainer {
@@ -78,6 +107,4 @@
             margin: 30px;
         }
     }
-
-    padding-bottom: 50px;
 }
