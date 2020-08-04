@@ -100,6 +100,11 @@
       display: flex;
       flex-wrap: wrap;
 
+      .avatarContainer {
+         background-color: $accentBlue;
+         border-radius: 50%;
+      }
+
       .profileInfo {
          align-self: flex-end;
       }

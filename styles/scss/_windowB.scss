@@ -14,6 +14,11 @@
             @include fontStyle($decorFont, $accentVibrantRed, 1.3rem)
         }
 
+        h3 {
+            @include fontStyle($decorFont, $bgColor, 1.3rem);
+            margin-bottom: 10px;
+        }
+
         p {
             @include fontStyle($bodyFont, $fontMainColor, 1rem)
         }
@@ -65,7 +70,8 @@
                 content: '';
                 display: block;
                 height: 3px;
-                background: $accentBlue;
+                background: $bgColor;
+                box-shadow: 4px 4px $accentBlue;
                 margin: 10px 0 20px 0;
             }
         }        
