@@ -1,6 +1,27 @@
 // Namespace 
 const idApp = {};
 
+// Helper function: random item from an array
+idApp.randomIndex = function (array) {
+   const index = Math.floor(Math.random() * array.length);
+   return array[index]
+}
+
+// Helper function: random array of three items (no repeats)
+idApp.randomThree = function (array) {
+   let one = idApp.randomIndex(array);
+   let two = idApp.randomIndex(array);
+   let three = idApp.randomIndex(array);
+
+   if (one == two || one == three) { one = idApp.randomIndex(array) }
+   if (two == one || two == three) { two = idApp.randomIndex(array) }
+   if (three == two || three == one) { three = idApp.randomIndex(array) }
+
+   const newArray = []
+   newArray.push(one, two, three)
+   return newArray
+}
+
 // Event Listeners Function  
 idApp.eventListeners = function() {
    //Cache $('main') jQuery selector as we will repeatedly use it
@@ -106,6 +127,7 @@ idApp.apiCall = function(gender, region) {
 }
 
 // Dice Bear Avatars API Call Function
+idApp.moods = ['happy', 'sad', 'excited']
 idApp.avatarCall = function(gender, name, mood) {
    $.ajax({
       url: `https://avatars.dicebear.com/api/${gender}/${name}.svg`,
@@ -116,13 +138,46 @@ idApp.avatarCall = function(gender, name, mood) {
          r: 50,
          w: 100,
          h: 100,
-         b: '#a8dadc',
          m: 15
       }
    }).then(function(res){
-      console.log(res)
       $('.avatarContainer').html(res)
    })
+}
+
+// User Bio information
+idApp.introData = {
+   hobbies: ['star-gazing', 'basket weaving', 'gaming', 'knitting', 'sitting in the dark', 'doing the dishes', 'buying plants', 'watching Netflix', 'running'],
+   petPeeve: ['when people leave the toilet seat up', 'stinky breath', 'that the earth will someday disappear', 'people who snore', 'garlic breath', 'the bourgeousie'],
+   jobStatus: ['working a dead end job', 'looking for work', 'in school'],
+   jobDreams: ['the CEO of Spotify', 'a YouTuber', 'an independent business owner', 'the very best Pokemon GO player'],
+   catchPhrase: ['cowabunga', 'oh beans', 'these pretzels are making me thirsty', 'd\'oh', 'LMFAO', 'yeah, no for sure', 'eh'],
+   relationshipStatus: ['single and ready to mingle!', 'in an open relationship', 'married with two kids', 'looking for love in all the wrong places', 'Live, Laugh, Loving my way through 2020']
+}
+
+// Custom User Bio Generator Function
+idApp.bioResults = []
+idApp.userBio = function (name) {
+   const newName = name;
+   const { hobbies, petPeeve, jobStatus, jobDreams, catchPhrase, relationshipStatus } = idApp.introData;
+   const hobby = idApp.randomThree(hobbies);
+   const petPeeve1 = idApp.randomIndex(petPeeve);
+   const jobStatus1 = idApp.randomIndex(jobStatus);
+   const jobDreams1 = idApp.randomIndex(jobDreams);
+   const catchPhrase1 = idApp.randomIndex(catchPhrase);
+   const relationshipStatus1 = idApp.randomIndex(relationshipStatus);
+
+   const bigBio = `Hello! My name is ${newName}. Some of my hobbies include ${hobby[0]}, ${hobby[1]}, and ${hobby[2]}. My biggest pet peeve is ${petPeeve1}. What gives?! I am currently ${jobStatus1} but one day I hope to be ${jobDreams1}. One can dream! My favorite thing to say is ${catchPhrase1}. I'm currently ${relationshipStatus1}.`
+
+   const smallBio = `Some of my hobbies include ${hobby[0]}, ${hobby[1]}, and ${hobby[2]}. My favorite thing to say is ${catchPhrase1}.`
+
+   const userBio = {
+      name: newName,
+      shortBio: smallBio,
+      bigBio: bigBio,
+   }
+
+   idApp.bioResults.unshift(userBio)
 }
 
 // Function to pull out specific data for the 10 identity choices
@@ -171,11 +226,18 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
    array.forEach(function(i) {
       const name = $('<h2>').text(i.name);
       const dateBirth = $('<p>').html(`<span class='dobStyle'>Date of Birth:</span> ${i.dateBirth}`);
-      const photo = $('<img>').attr({src: `${i.photo}`, alt: `User photo: ${i.name}`});
+      idApp.userBio(i.name);
       const textContainer = $('<div>').attr('class', 'textContainer').append(name, dateBirth)
+
+      const photo = $('<img>').attr({src: `${i.photo}`, alt: `User photo: ${i.name}`});
       const imageContainer = $('<div>').attr('class', 'imageContainer').append(photo)
-      const hiddenStuffs = $('<div>').attr('class', 'hiddenContents').text('Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit ducimus dolorem magnam nesciunt nostrum. Voluptatibus, soluta. Unde, porro deserunt vero, ipsum error illo quod quidem voluptatum dolorum voluptas alias aperiam!')
+
+      const bioHeader = $('<h3>').text('Sample Personality')
+      const shortBio = $('<p>').text(idApp.bioResults[0].shortBio)
+      const hiddenStuffs = $('<div>').attr('class', 'hiddenContents').append(bioHeader, shortBio)
+
       const closeButton = $('<i>').attr('class', 'fas fa-plus')
+
       const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer, hiddenStuffs);
       const radioInput = $('<input>').attr({
       type: 'radio', 
@@ -193,17 +255,40 @@ idApp.finalDisplay = function(array) {
    const finalChoiceObject = array[0]
    const { cell, dob, email, gender, location, login, name, picture } = finalChoiceObject
    const { city, country, postcode, state, street } = location
+   const fullName = `${name.title} ${name.first} ${name.last}`
+   const mood = idApp.randomIndex(idApp.moods)
+   //WINNIE! If you can figure out why I can't use a .map function here, please let me know because I think I am losing my mind. If I do:
+   //let userBio = idApp.bioResults.forEach(function(i){
+   //    if (i.name === fullName) {
+   //       console.log(i[0]["bigBio"])
+   //       return i[0]["bigBio"]   
+   //    }
+   // })
+   // it console logs out something completely different from the return. it's nuts!!
+   let userBio = []
+   idApp.bioResults.forEach(function(i){
+      if (i.name === fullName) {
+         userBio.push(i)
+      };
+   })
 
    $('.windowB').toggleClass('windowB windowC').html(`
       <div class='border'>
          <section class='nameplate'>
             <div class='userPhoto'>
-               <img src='${picture.large}' alt='user photo: ${name.first} ${name.last}'>
+               <img src='${picture.large}' alt='user photo: ${fullName}'>
             </div>
             <div class='userName'>
-               <h2>${name.title} ${name.first} ${name.last}</h2>
+               <h2>${fullName}</h2>
                <p>${gender}</p>
                <p>${dob.date.substring(0, 10)}</p>
+            </div>
+         </section>
+         <section class="userBio">
+            <input type='checkbox' id='userBio' name='dropdown' class='checkbox srOnly'>
+            <label for='userBio' class='profileHeader'>- User Bio -</label>
+            <div class='hiddenContents'>
+               <p>${userBio[0]['bigBio']}</p>
             </div>
          </section>
          <section class='contactInfo'>
@@ -225,7 +310,7 @@ idApp.finalDisplay = function(array) {
             <label for='newSocials' class='profileHeader'>- New Social Media -</label>
             <div class='hiddenContents'>
                <div class="avatarContainer">
-                  ${idApp.avatarCall(`${gender}`, `${name.first}`, 'sad')}
+                  ${idApp.avatarCall(`${gender}`, `${name.first}`, `${mood}`)}
                </div>
                <div class="profileInfo">
                   <p><span>Username:</span> ${login.username}</p>

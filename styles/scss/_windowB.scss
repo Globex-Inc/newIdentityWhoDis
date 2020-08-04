@@ -15,6 +15,11 @@
             @include fontStyle($decorFont, $accentVibrantRed, 1.3rem)
         }
 
+        h3 {
+            @include fontStyle($decorFont, $bgColor, 1.3rem);
+            margin-bottom: 10px;
+        }
+
         p {
             @include fontStyle($bodyFont, $fontMainColor, 1rem)
         }
