@@ -363,16 +363,21 @@ header p span {
 header p .important {
   display: block;
   margin-top: 10px;
-  padding: 2px 10px;
+  padding: 12px;
   background: #a8dadc;
   border-radius: 8px;
+  line-height: 1.75rem;
 }
 
 header p .button {
   text-transform: capitalize;
-  color: #e63946;
+  color: #f1faee;
   font-family: "Nova Square", cursive;
-  padding: 0 5px;
+  padding: 4px 8px;
+  background-color: #e63946;
+  border-radius: 8px;
+  position: relative;
+  bottom: 6px;
 }
 
 main {
@@ -468,7 +473,7 @@ main {
   padding-bottom: 50px;
 }
 
-.windowB h2 {
+.windowB fieldset h2 {
   margin: 10px 0;
   font-size: 1.3rem;
   font-family: "Nova Square", cursive;
@@ -477,7 +482,7 @@ main {
   line-height: auto;
 }
 
-.windowB p {
+.windowB fieldset p {
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
@@ -485,17 +490,16 @@ main {
   line-height: auto;
 }
 
-.windowB .dobStyle {
+.windowB fieldset .dobStyle {
   color: #0f1c2e;
 }
 
-.windowB input[type='radio'] {
+.windowB fieldset input[type='radio'] {
   opacity: 0;
 }
 
-.windowB label {
+.windowB fieldset label {
   background-color: #78a5bf;
-  border: 2.5px #78a5bf solid;
   border-radius: 12px;
   -webkit-box-shadow: 15px 15px 0px #a8dadc;
           box-shadow: 15px 15px 0px #a8dadc;
@@ -506,23 +510,7 @@ main {
   position: relative;
 }
 
-.windowB label:hover,
-.windowB input[type='radio']:focus + label,
-.windowB input[type='radio']:checked + label {
-  border: 2.5px #e63946 solid;
-  background-color: #e63946;
-  cursor: pointer;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-
-.windowB label:hover h2,
-.windowB input[type='radio']:focus + label h2,
-.windowB input[type='radio']:checked + label h2 {
-  color: #0f1c2e;
-}
-
-.windowB .optionContainer {
+.windowB fieldset .optionContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -534,23 +522,23 @@ main {
   margin: 20px;
 }
 
-.windowB .imageContainer {
+.windowB fieldset .imageContainer {
   margin-right: 20px;
   background: #a8dadc;
   border-radius: 50%;
   padding: 10px;
 }
 
-.windowB img {
+.windowB fieldset img {
   border-radius: 50%;
   width: 125px;
 }
 
-.windowB .textContainer {
+.windowB fieldset .textContainer {
   margin-left: 40px;
 }
 
-.windowB .displayContents::before {
+.windowB fieldset .displayContents::before {
   content: '';
   display: block;
   height: 3px;
@@ -558,7 +546,7 @@ main {
   margin: 10px 0 20px 0;
 }
 
-.windowB .fa-plus {
+.windowB fieldset .fa-plus {
   position: absolute;
   color: #f1faee;
   font-size: 2rem;
@@ -572,13 +560,34 @@ main {
   transition: transform .5s, -webkit-transform .5s;
 }
 
-.windowB .active {
+.windowB fieldset .active {
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   -webkit-transition: -webkit-transform .5s;
   transition: -webkit-transform .5s;
   transition: transform .5s;
   transition: transform .5s, -webkit-transform .5s;
+}
+
+.windowB label:hover,
+.windowB input[type='radio']:focus + label {
+  background-color: #F2929A;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.windowB label:hover h2,
+.windowB input[type='radio']:focus + label h2 {
+  color: #0f1c2e;
+}
+
+.windowB input[type='radio']:checked + label {
+  background-color: #e63946;
+}
+
+.windowB input[type='radio']:checked + label h2 {
+  color: #0f1c2e;
 }
 
 .windowC {
@@ -724,7 +733,7 @@ footer {
   header p {
     width: 100%;
   }
-  .windowB label {
+  .windowB fieldset label {
     width: 95%;
   }
 }
@@ -733,15 +742,15 @@ footer {
   header h1 {
     font-size: 2.75rem;
   }
-  .windowB .optionContainer {
+  .windowB fieldset .optionContainer {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
   }
-  .windowB .textContainer {
+  .windowB fieldset .textContainer {
     margin-left: 0px;
   }
-  .windowB h2, .windowB p {
+  .windowB fieldset h2, .windowB fieldset p {
     text-align: center;
   }
   .windowC .nameplate, .windowC .socialMedia .hiddenContents {
@@ -758,25 +767,25 @@ footer {
 }
 
 @media (max-width: 400px) {
-  .windowA select {
-    width: 100%;
-  }
   header p,
   .windowA select,
-  .windowB p,
+  .windowB fieldset p,
   .errorContainer p,
   .windowC p,
   footer p {
     font-size: 0.8rem;
   }
-  .windowB h2 {
+  .windowA select {
+    width: 100%;
+  }
+  .windowB fieldset h2 {
     font-size: 1rem;
   }
-  .windowB label {
+  .windowB fieldset label {
     -webkit-box-shadow: 8px 8px 0px #a8dadc;
             box-shadow: 8px 8px 0px #a8dadc;
   }
-  .windowB .fa-plus {
+  .windowB fieldset .fa-plus {
     font-size: 1.5rem;
   }
   .windowC {

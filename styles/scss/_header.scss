@@ -29,16 +29,21 @@ header {
       .important {
          display: block;
          margin-top: 10px;
-         padding: 2px 10px;
+         padding: 12px;
          background: $accentBlue;
          border-radius: 8px;
+         line-height: 1.75rem;
       }
 
       .button {
          text-transform: capitalize;
-         color: $accentRed;
+         color: $fontMainColor;
          font-family: $decorFont;
-         padding: 0 5px;
+         padding: 4px 8px;
+         background-color: $accentRed;
+         border-radius: 8px;
+         position: relative;
+         bottom: 6px;
       }
    }
 }

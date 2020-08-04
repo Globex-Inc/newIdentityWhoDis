@@ -8,42 +8,88 @@
         flex-wrap: wrap;
         border: none;
         padding-bottom: 50px;
-    }
+    
+        h2 {
+            margin: 10px 0;
+            @include fontStyle($decorFont, $accentVibrantRed, 1.3rem)
+        }
 
-    h2 {
-        margin: 10px 0;
-        @include fontStyle($decorFont, $accentVibrantRed, 1.3rem)
-    }
+        p {
+            @include fontStyle($bodyFont, $fontMainColor, 1rem)
+        }
 
-    p {
-        @include fontStyle($bodyFont, $fontMainColor, 1rem)
-    }
+        .dobStyle {
+            color: $bgColor;
+        }
 
-    .dobStyle {
-        color: $bgColor;
-    }
+        input[type='radio'] {
+            opacity: 0;
+        }
 
-    input[type='radio'] {
-        opacity: 0;
-    }
+        label {
+            background-color: $secondBgColor;
+            border-radius: 12px;
+            box-shadow: 15px 15px 0px $accentBlue;
+            display: block;
+            margin: 25px auto;
+            padding: 0 30px;
+            width: 70%; 
+            position: relative;
+        }
 
-    label {
-        background-color: $secondBgColor;
-        border: 2.5px $secondBgColor solid;
-        border-radius: 12px;
-        box-shadow: 15px 15px 0px $accentBlue;
-        display: block;
-        margin: 25px auto;
-        padding: 0 30px;
-        width: 70%; // 
-        position: relative;
+        .optionContainer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .imageContainer {
+            margin-right: 20px;
+            background: $accentBlue;
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        img {
+            border-radius: 50%;
+            width: 125px;
+        }
+    
+        .textContainer {
+            margin-left: 40px;
+        }
+
+        .displayContents{
+            &::before {
+                content: '';
+                display: block;
+                height: 3px;
+                background: $accentBlue;
+                margin: 10px 0 20px 0;
+            }
+        }        
+        
+        .fa-plus {
+            position: absolute;
+            color: $fontMainColor;
+            font-size: 2rem;
+            top: 0;
+            right: 0;
+            z-index: 10;
+            padding: 10px;
+            transition: transform .5s;
+        }
+    
+        .active {
+            transform: rotate(45deg);
+            transition: transform .5s;
+        }
     }
 
     label:hover,
-    input[type='radio']:focus + label,
-    input[type='radio']:checked + label {
-        border:  2.5px $accentRed solid;
-        background-color: $accentRed;
+    input[type='radio']:focus + label {
+        background-color: $hoverRed;
         cursor: pointer;
         h2 {
             color: $bgColor;
@@ -51,54 +97,11 @@
         transition: all 0.5s;
     }
 
-    .optionContainer {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        margin: 20px;
-    }
-
-    .imageContainer {
-        margin-right: 20px;
-        background: $accentBlue;
-        border-radius: 50%;
-        padding: 10px;
-    }
-
-    img {
-        border-radius: 50%;
-        width: 125px;
-    }
-    
-
-    .textContainer {
-        margin-left: 40px;
-    }
-
-    .displayContents{
-        &::before {
-            content: '';
-            display: block;
-            height: 3px;
-            background: $accentBlue;
-            margin: 10px 0 20px 0;
+    input[type='radio']:checked + label {
+        background-color: $accentRed;
+        h2 {
+            color: $bgColor;
         }
-    }        
-    
-    .fa-plus {
-        position: absolute;
-        color: $fontMainColor;
-        font-size: 2rem;
-        top: 0;
-        right: 0;
-        z-index: 10;
-        padding: 10px;
-        transition: transform .5s;
-    }
-    
-    .active {
-        transform: rotate(45deg);
-        transition: transform .5s;
     }
 }
 

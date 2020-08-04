@@ -1,3 +1,4 @@
+// Media query to increase widths of the instruction container/Window B results, and reduce <h1> size
 @media (max-width: 940px) {
     header {
         h1 {
@@ -7,16 +8,18 @@
             width: 100%;
         }
     }
-    .windowB label {
+    .windowB fieldset label {
         width: 95%;
     }
 }
 
+
+// Media query to center flexed content as it wraps, and to reduce margin/font sizes
 @media (max-width: 700px) {
     header h1 {
         font-size: 2.75rem;
     }
-    .windowB {
+    .windowB fieldset {
         .optionContainer {
             justify-content: center;
         }
@@ -40,21 +43,23 @@
     }
 }
 
-@media (max-width: 400px) {
-    .windowA select {
-        width: 100%;
-    }
 
+// Media query to reduce font sizes, padding, and box-shadow, and increase width of <select> 
+@media (max-width: 400px) {
     header p,
     .windowA select,
-    .windowB p,
+    .windowB fieldset p,
     .errorContainer p,
     .windowC p,
     footer p {
         font-size: 0.8rem;
     }
+    
+    .windowA select {
+        width: 100%;
+    }
 
-    .windowB {
+    .windowB fieldset {
         h2 {
             font-size: 1rem;
         }
