@@ -4,6 +4,7 @@ $fontMainColor: #f1faee;
 $accentRed: #e63946;
 $accentBlue: #a8dadc;
 $accentVibrantRed: #d90429;
+$hoverRed: #F2929A;
 
 $decorFont: 'Nova Square', cursive;
 $bodyFont: 'Open Sans', sans-serif;
@@ -18,37 +19,17 @@ $bodyFont: 'Open Sans', sans-serif;
 
 @mixin mainButton() {
    background-color: $accentRed;
-   padding: 10px 25px;
+   padding: 10px 20px;
    color: $fontMainColor;
    font-family: $decorFont;
+   font-size: 1.3rem;
    border: 2.5px solid $accentRed;
    border-radius: 12px;
    cursor: pointer;
+   margin: 30px;
 }
 
 @mixin buttonHover {
    transform: scaleX(1.06);
-   border: 2.5px solid $accentVibrantRed;
+   border: 2.5px solid $accentBlue;
 }
-
-
-//Design notes:
-//Window A (PHIL): 100vh, maybe fun background around the header info, two inputs side by side, button underneath, increase the size, we need instruction copy for this page
-//instructions copy 
-
-//Window B (WINNIE):
-//hide the radio buttons and highlight the clicked selection instead
-//list is shorter, smaller photos
-//put into a 5 x 3 grid
-//submit button center at the bottom, make more semantic
-//instructions copy
-
-//Window C (PHIL):
-//nameplate to the right side of the photo
-//increase photo size if possible
-//each section has its own pod on the window
-//at the bottom are the navigation buttons, displayed in their own visually distinct way
-//instructions copy
-
-//Footer (WINNIE):
-//make background different from main, center font

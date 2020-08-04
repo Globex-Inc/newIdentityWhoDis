@@ -266,18 +266,24 @@ a:hover, a:focus {
 
 button {
   background-color: #e63946;
-  padding: 10px 25px;
+  padding: 10px 20px;
   color: #f1faee;
   font-family: "Nova Square", cursive;
+  font-size: 1.3rem;
   border: 2.5px solid #e63946;
   border-radius: 12px;
   cursor: pointer;
+  margin: 30px;
 }
 
 button:hover, button:focus {
   -webkit-transform: scaleX(1.06);
           transform: scaleX(1.06);
-  border: 2.5px solid #d90429;
+  border: 2.5px solid #a8dadc;
+}
+
+.buttonContainer {
+  margin: 30px auto 0px auto;
 }
 
 .errorContainer {
@@ -287,7 +293,7 @@ button:hover, button:focus {
   color: #e63946;
   line-height: auto;
   height: 10px;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 .hiddenContents {
@@ -357,16 +363,21 @@ header p span {
 header p .important {
   display: block;
   margin-top: 10px;
-  padding: 2px 10px;
+  padding: 12px;
   background: #a8dadc;
   border-radius: 8px;
+  line-height: 1.75rem;
 }
 
 header p .button {
   text-transform: capitalize;
-  color: #e63946;
+  color: #f1faee;
   font-family: "Nova Square", cursive;
-  padding: 0 5px;
+  padding: 4px 8px;
+  background-color: #e63946;
+  border-radius: 8px;
+  position: relative;
+  bottom: 6px;
 }
 
 main {
@@ -386,24 +397,26 @@ main {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-.windowA .userInput {
-  min-height: 65%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.windowA .userInput select {
+.windowA .userInput {
+  min-height: 35%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.windowA select {
   color: #f1faee;
   background-color: #a8dadc;
   font-size: 1rem;
@@ -423,18 +436,17 @@ main {
   background-size: 20px;
   background-repeat: no-repeat;
   background-position: 97% center;
-  width: calc(50% - 40px);
-  min-width: 375px;
+  width: 375px;
   padding: 10px;
-  margin: 0 10px;
+  margin: 20px;
   cursor: pointer;
 }
 
-.windowA .userInput select:hover, .windowA .userInput select:focus {
+.windowA select:hover, .windowA select:focus {
   border: 3px solid #a8dadc;
 }
 
-.windowA .userInput .submitButton {
+.windowA .submitButton {
   margin: 0 auto;
 }
 
@@ -449,7 +461,6 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-bottom: 50px;
 }
 
 .windowB fieldset {
@@ -498,31 +509,14 @@ main {
 
 .windowB fieldset label {
   background-color: #78a5bf;
-  border: 2.5px #78a5bf solid;
   border-radius: 12px;
   -webkit-box-shadow: 15px 15px 0px #a8dadc;
           box-shadow: 15px 15px 0px #a8dadc;
   display: block;
   margin: 25px auto;
-  padding-left: 20px;
-  width: 80%;
+  padding: 0 30px;
+  width: 70%;
   position: relative;
-}
-
-.windowB fieldset label:hover,
-.windowB fieldset input[type='radio']:focus + label,
-.windowB fieldset input[type='radio']:checked + label {
-  border: 2.5px #e63946 solid;
-  background-color: #e63946;
-  cursor: pointer;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-
-.windowB fieldset label:hover h2,
-.windowB fieldset input[type='radio']:focus + label h2,
-.windowB fieldset input[type='radio']:checked + label h2 {
-  color: #0f1c2e;
 }
 
 .windowB fieldset .optionContainer {
@@ -537,20 +531,20 @@ main {
   margin: 20px;
 }
 
-.windowB fieldset .optionContainer .imageContainer {
+.windowB fieldset .imageContainer {
   margin-right: 20px;
   background: #a8dadc;
   border-radius: 50%;
   padding: 10px;
 }
 
-.windowB fieldset .optionContainer img {
+.windowB fieldset img {
   border-radius: 50%;
   width: 125px;
 }
 
 .windowB fieldset .textContainer {
-  margin-left: 50px;
+  margin-left: 40px;
 }
 
 .windowB fieldset .displayContents::before {
@@ -563,7 +557,7 @@ main {
   margin: 10px 0 20px 0;
 }
 
-.windowB .fa-plus {
+.windowB fieldset .fa-plus {
   position: absolute;
   color: #f1faee;
   font-size: 2rem;
@@ -577,7 +571,7 @@ main {
   transition: transform .5s, -webkit-transform .5s;
 }
 
-.windowB .active {
+.windowB fieldset .active {
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
   -webkit-transition: -webkit-transform .5s;
@@ -586,19 +580,25 @@ main {
   transition: transform .5s, -webkit-transform .5s;
 }
 
-.windowB .buttonContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.windowB label:hover,
+.windowB input[type='radio']:focus + label {
+  background-color: #F2929A;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
-.windowB .buttonContainer button {
-  margin: 30px;
+.windowB label:hover h2,
+.windowB input[type='radio']:focus + label h2 {
+  color: #0f1c2e;
+}
+
+.windowB input[type='radio']:checked + label {
+  background-color: #e63946;
+}
+
+.windowB input[type='radio']:checked + label h2 {
+  color: #0f1c2e;
 }
 
 .windowC {
@@ -626,12 +626,6 @@ main {
 
 .windowC form {
   text-align: center;
-}
-
-.windowC button {
-  margin: 20px auto;
-  width: 100%;
-  max-width: 200px;
 }
 
 .windowC section {
@@ -675,6 +669,8 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .windowC .nameplate .userPhoto {
@@ -744,4 +740,71 @@ footer {
   background-color: #78a5bf;
   padding: 15px 0;
   text-align: center;
+}
+
+@media (max-width: 940px) {
+  header h1 {
+    font-size: 3.5rem;
+  }
+  header p {
+    width: 100%;
+  }
+  .windowB fieldset label {
+    width: 95%;
+  }
+}
+
+@media (max-width: 700px) {
+  header h1 {
+    font-size: 2.75rem;
+  }
+  .windowB fieldset .optionContainer {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .windowB fieldset .textContainer {
+    margin-left: 0px;
+  }
+  .windowB fieldset h2, .windowB fieldset p {
+    text-align: center;
+  }
+  .windowC .nameplate, .windowC .socialMedia .hiddenContents {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .windowC .userName {
+    text-align: center;
+  }
+  button {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  header p,
+  .windowA select,
+  .windowB fieldset p,
+  .errorContainer p,
+  .windowC p,
+  footer p {
+    font-size: 0.8rem;
+  }
+  .windowA select {
+    width: 100%;
+  }
+  .windowB fieldset h2 {
+    font-size: 1rem;
+  }
+  .windowB fieldset label {
+    -webkit-box-shadow: 8px 8px 0px #a8dadc;
+            box-shadow: 8px 8px 0px #a8dadc;
+  }
+  .windowB fieldset .fa-plus {
+    font-size: 1.5rem;
+  }
+  .windowC {
+    padding: 10px;
+  }
 }

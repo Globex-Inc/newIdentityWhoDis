@@ -2,14 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 50px;
 
     fieldset {
         display: flex;
         flex-wrap: wrap;
         border: none;
         padding-bottom: 50px;
-
+    
         h2 {
             margin: 10px 0;
             @include fontStyle($decorFont, $accentVibrantRed, 1.3rem)
@@ -34,47 +33,36 @@
 
         label {
             background-color: $secondBgColor;
-            border: 2.5px $secondBgColor solid;
             border-radius: 12px;
             box-shadow: 15px 15px 0px $accentBlue;
             display: block;
             margin: 25px auto;
-            padding-left: 20px;
-            width: 80%; // can change this to fixed pixel width and have it wrap for a diff layout!
+            padding: 0 30px;
+            width: 70%; 
             position: relative;
         }
 
-        label:hover,
-        input[type='radio']:focus + label,
-        input[type='radio']:checked + label {
-            border:  2.5px $accentRed solid;
-            background-color: $accentRed;
-            cursor: pointer;
-            h2 {
-                color: $bgColor;
-            }
-            transition: all 0.5s;
+        .optionContainer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 20px;
         }
 
-        .optionContainer {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        margin: 20px;
         .imageContainer {
             margin-right: 20px;
             background: $accentBlue;
             border-radius: 50%;
             padding: 10px;
         }
+
         img {
             border-radius: 50%;
             width: 125px;
         }
-        }
-        
+    
         .textContainer {
-            margin-left: 50px;
+            margin-left: 40px;
         }
 
         .displayContents{
@@ -87,30 +75,40 @@
                 margin: 10px 0 20px 0;
             }
         }        
-    }
-
-    .fa-plus {
-    position: absolute;
-    color: $fontMainColor;
-    font-size: 2rem;
-    top: 0;
-    right: 0;
-    z-index: 10;
-    padding: 10px;
-    transition: transform .5s;
-    }
+        
+        .fa-plus {
+            position: absolute;
+            color: $fontMainColor;
+            font-size: 2rem;
+            top: 0;
+            right: 0;
+            z-index: 10;
+            padding: 10px;
+            transition: transform .5s;
+        }
     
-    .active {
-        transform: rotate(45deg);
-        transition: transform .5s;
+        .active {
+            transform: rotate(45deg);
+            transition: transform .5s;
+        }
     }
 
-    .buttonContainer {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        button {
-            margin: 30px;
+    label:hover,
+    input[type='radio']:focus + label {
+        background-color: $hoverRed;
+        cursor: pointer;
+        h2 {
+            color: $bgColor;
+        }
+        transition: all 0.5s;
+    }
+
+    input[type='radio']:checked + label {
+        background-color: $accentRed;
+        h2 {
+            color: $bgColor;
         }
     }
 }
+
+
