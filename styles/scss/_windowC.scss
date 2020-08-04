@@ -14,6 +14,7 @@
    form {
       text-align: center;
    }
+
    button {
       margin: 20px auto;
       width: 100%;
@@ -90,12 +91,23 @@
    color: $bgColor;
    font-weight: 700;
    padding: 10px;
+   border-radius: 12px;
    display: block;
    cursor: pointer;
 
-      &:hover {
+      &:hover, 
+      &:focus {
          background-color: $accentBlue;
          border-radius: 12px;
+      }
+   }
+
+   .socialMedia .hiddenContents {
+      display: flex;
+      flex-wrap: wrap;
+
+      .profileInfo {
+         align-self: flex-end;
       }
    }
 }
