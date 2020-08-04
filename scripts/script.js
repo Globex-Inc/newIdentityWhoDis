@@ -1,38 +1,21 @@
+//custom user bio module
+import randomizers from './randomizers.js'
+import userBio from './userBio.js'
+
 // Namespace 
 const idApp = {};
-
-// Helper function: random item from an array
-idApp.randomIndex = function (array) {
-   const index = Math.floor(Math.random() * array.length);
-   return array[index]
-}
-
-// Helper function: random array of three items (no repeats)
-idApp.randomThree = function (array) {
-   let one = idApp.randomIndex(array);
-   let two = idApp.randomIndex(array);
-   let three = idApp.randomIndex(array);
-
-   if (one == two || one == three) { one = idApp.randomIndex(array) }
-   if (two == one || two == three) { two = idApp.randomIndex(array) }
-   if (three == two || three == one) { three = idApp.randomIndex(array) }
-
-   const newArray = []
-   newArray.push(one, two, three)
-   return newArray
-}
 
 // Event Listeners Function  
 idApp.eventListeners = function() {
    //Cache $('main') jQuery selector as we will repeatedly use it
-   $main = $('main');
+   const $main = $('main');
 
    // Event Listener #1 (Window A) - for when the user first submits their preferred region/gender
    $('form').on('submit', function(event){
       event.preventDefault();
       // Cache the user's chosen gender and region (can be re-used again in second API call)
-      $userGender = $('#gender option:checked').val()
-      $userRegion = $('#regions option:checked').val()
+      const $userGender = $('#gender option:checked').val()
+      const $userRegion = $('#regions option:checked').val()
       // Error Handling - for if user does not choose any options 
       if (!$userGender || !$userRegion) {
          $('.errorContainer').html(`<p>Oops! You forgot to fill something in!</p>`);
@@ -145,40 +128,6 @@ idApp.avatarCall = function(gender, name, mood) {
    })
 }
 
-// User Bio information
-idApp.introData = {
-   hobbies: ['star-gazing', 'basket weaving', 'gaming', 'knitting', 'sitting in the dark', 'doing the dishes', 'buying plants', 'watching Netflix', 'running'],
-   petPeeve: ['when people leave the toilet seat up', 'stinky breath', 'that the earth will someday disappear', 'people who snore', 'garlic breath', 'the bourgeousie'],
-   jobStatus: ['working a dead end job', 'looking for work', 'in school'],
-   jobDreams: ['the CEO of Spotify', 'a YouTuber', 'an independent business owner', 'the very best Pokemon GO player'],
-   catchPhrase: ['cowabunga', 'oh beans', 'these pretzels are making me thirsty', 'd\'oh', 'LMFAO', 'yeah, no for sure', 'eh'],
-   relationshipStatus: ['single and ready to mingle!', 'in an open relationship', 'married with two kids', 'looking for love in all the wrong places', 'Live, Laugh, Loving my way through 2020']
-}
-
-// Custom User Bio Generator Function
-idApp.bioResults = []
-idApp.userBio = function (name) {
-   const newName = name;
-   const { hobbies, petPeeve, jobStatus, jobDreams, catchPhrase, relationshipStatus } = idApp.introData;
-   const hobby = idApp.randomThree(hobbies);
-   const petPeeve1 = idApp.randomIndex(petPeeve);
-   const jobStatus1 = idApp.randomIndex(jobStatus);
-   const jobDreams1 = idApp.randomIndex(jobDreams);
-   const catchPhrase1 = idApp.randomIndex(catchPhrase);
-   const relationshipStatus1 = idApp.randomIndex(relationshipStatus);
-
-   const bigBio = `Hello! My name is ${newName}. Some of my hobbies include ${hobby[0]}, ${hobby[1]}, and ${hobby[2]}. My biggest pet peeve is ${petPeeve1}. What gives?! I am currently ${jobStatus1} but one day I hope to be ${jobDreams1}. One can dream! My favorite thing to say is ${catchPhrase1}. I'm currently ${relationshipStatus1}.`
-
-   const smallBio = `Some of my hobbies include ${hobby[0]}, ${hobby[1]}, and ${hobby[2]}. My favorite thing to say is ${catchPhrase1}.`
-
-   const userBio = {
-      name: newName,
-      shortBio: smallBio,
-      bigBio: bigBio,
-   }
-
-   idApp.bioResults.unshift(userBio)
-}
 
 // Function to pull out specific data for the 10 identity choices
 idApp.listOfNames = function(results){
@@ -226,24 +175,24 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
    array.forEach(function(i) {
       const name = $('<h2>').text(i.name);
       const dateBirth = $('<p>').html(`<span class='dobStyle'>Date of Birth:</span> ${i.dateBirth}`);
-      idApp.userBio(i.name);
       const textContainer = $('<div>').attr('class', 'textContainer').append(name, dateBirth)
-
+      
       const photo = $('<img>').attr({src: `${i.photo}`, alt: `User photo: ${i.name}`});
       const imageContainer = $('<div>').attr('class', 'imageContainer').append(photo)
-
+      
+      userBio.generateBio(i.name);
       const bioHeader = $('<h3>').text('Sample Personality')
-      const shortBio = $('<p>').text(idApp.bioResults[0].shortBio)
+      const shortBio = $('<p>').text(userBio.bioResults[0].shortBio)
       const hiddenStuffs = $('<div>').attr('class', 'hiddenContents').append(bioHeader, shortBio)
 
       const closeButton = $('<i>').attr('class', 'fas fa-plus')
 
       const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer, hiddenStuffs);
       const radioInput = $('<input>').attr({
-      type: 'radio', 
-      id: `${i.id}`, 
-      name: 'option', 
-      value: `${i.id}`})
+         type: 'radio', 
+         id: `${i.id}`, 
+         name: 'option', 
+         value: `${i.id}`})
       const radioLabel = $('<label>').attr('for', i.id).attr('class', 'windowBLabel').append(optionContainer, closeButton);
       
       $('.resultsList').append(radioInput, radioLabel);
@@ -252,23 +201,19 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
 
 // Function to display the full bio of the user's chosen identity
 idApp.finalDisplay = function(array) {
+   //scroll to top of window during transition from windowB to windowC
+   window.scrollTo(0, 0);
+
    const finalChoiceObject = array[0]
    const { cell, dob, email, gender, location, login, name, picture } = finalChoiceObject
    const { city, country, postcode, state, street } = location
    const fullName = `${name.title} ${name.first} ${name.last}`
-   const mood = idApp.randomIndex(idApp.moods)
-   //WINNIE! If you can figure out why I can't use a .map function here, please let me know because I think I am losing my mind. If I do:
-   //let userBio = idApp.bioResults.forEach(function(i){
-   //    if (i.name === fullName) {
-   //       console.log(i[0]["bigBio"])
-   //       return i[0]["bigBio"]   
-   //    }
-   // })
-   // it console logs out something completely different from the return. it's nuts!!
-   let userBio = []
-   idApp.bioResults.forEach(function(i){
+   const mood = randomizers.randomIndex(idApp.moods)
+
+   let resultsToDisplay = []
+   userBio.bioResults.forEach(function(i){
       if (i.name === fullName) {
-         userBio.push(i)
+         resultsToDisplay.push(i)
       };
    })
 
@@ -288,7 +233,7 @@ idApp.finalDisplay = function(array) {
             <input type='checkbox' id='userBio' name='dropdown' class='checkbox srOnly'>
             <label for='userBio' class='profileHeader'>- User Bio -</label>
             <div class='hiddenContents'>
-               <p>${userBio[0]['bigBio']}</p>
+               <p>${resultsToDisplay[0]['bigBio']}</p>
             </div>
          </section>
          <section class='contactInfo'>
@@ -330,9 +275,6 @@ idApp.finalDisplay = function(array) {
    $('.instructions').html(`
    <span>Et voilà!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'>reset button</span> at the bottom if you want to try again.</span>
    `)
-
-   //scroll to top of window during transition from windowB to windowC
-   window.scrollTo(0,0);
 }
 
 // Init Function 
