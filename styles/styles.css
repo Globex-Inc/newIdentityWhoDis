@@ -496,7 +496,7 @@ main {
   display: block;
   margin: 25px auto;
   padding-left: 20px;
-  width: 80%;
+  width: 70%;
   position: relative;
 }
 
@@ -538,10 +538,6 @@ main {
 .windowB fieldset .optionContainer img {
   border-radius: 50%;
   width: 125px;
-}
-
-.windowB fieldset .textContainer {
-  margin-left: 50px;
 }
 
 .windowB fieldset .displayContents::before {
@@ -714,4 +710,27 @@ footer {
   background-color: #78a5bf;
   padding: 15px 0;
   text-align: center;
+}
+
+@media (max-width: 940px) {
+  header p {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .windowB .optionContainer {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  header p {
+    width: 100%;
+  }
+  .windowB label {
+    width: 90%;
+  }
 }

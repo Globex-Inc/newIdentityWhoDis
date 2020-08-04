@@ -35,7 +35,7 @@
             display: block;
             margin: 25px auto;
             padding-left: 20px;
-            width: 80%; // can change this to fixed pixel width and have it wrap for a diff layout!
+            width: 70%; // can change this to fixed pixel width and have it wrap for a diff layout!
             position: relative;
         }
 
@@ -66,10 +66,6 @@
             border-radius: 50%;
             width: 125px;
         }
-        }
-        
-        .textContainer {
-            margin-left: 50px;
         }
 
         .displayContents{
