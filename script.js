@@ -84,7 +84,7 @@ idApp.eventListeners = function() {
 // Empty array to store the API results in
 idApp.apiResults = []
 
-// API Call Function 
+// Random User API Call Function 
 idApp.apiCall = function(gender, region) {
    $.ajax({
       url: 'https://randomuser.me/api/',
@@ -102,6 +102,26 @@ idApp.apiCall = function(gender, region) {
       })
       // Call the idApp.listOfNames function, and pass in results from the API call 
       idApp.listOfNames(res.results);
+   })
+}
+
+// Dice Bear Avatars API Call Function
+idApp.avatarCall = function(gender, name, mood) {
+   $.ajax({
+      url: `https://avatars.dicebear.com/api/${gender}/${name}.svg`,
+      method: 'GET',
+      dataType: 'html',
+      data: {
+         mood: [mood],
+         r: 50,
+         w: 100,
+         h: 100,
+         b: '#a8dadc',
+         m: 15
+      }
+   }).then(function(res){
+      console.log(res)
+      $('.avatarContainer').html(res)
    })
 }
 
@@ -204,8 +224,13 @@ idApp.finalDisplay = function(array) {
             <input type='checkbox' id='newSocials' name='dropdown' class='checkbox srOnly'>
             <label for='newSocials' class='profileHeader'>- New Social Media -</label>
             <div class='hiddenContents'>
-               <p><span>Username:</span> ${login.username}</p>
-               <p><span>Password:</span> ${login.password}</p>
+               <div class="avatarContainer">
+                  ${idApp.avatarCall(`${gender}`, `${name.first}`, 'sad')}
+               </div>
+               <div class="profileInfo">
+                  <p><span>Username:</span> ${login.username}</p>
+                  <p><span>Password:</span> ${login.password}</p>
+               </div>
             </div>
          </section>
          <form class='backToWindowB'>
