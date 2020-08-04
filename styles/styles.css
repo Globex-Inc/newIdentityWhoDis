@@ -692,13 +692,27 @@ main {
   color: #0f1c2e;
   font-weight: 700;
   padding: 10px;
+  border-radius: 12px;
   display: block;
   cursor: pointer;
 }
 
-.windowC .profileHeader:hover {
+.windowC .profileHeader:hover, .windowC .profileHeader:focus {
   background-color: #a8dadc;
   border-radius: 12px;
+}
+
+.windowC .socialMedia .hiddenContents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.windowC .socialMedia .hiddenContents .profileInfo {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 
 footer {
