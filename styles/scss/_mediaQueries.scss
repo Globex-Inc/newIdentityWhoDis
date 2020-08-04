@@ -1,26 +1,72 @@
 @media (max-width: 940px) {
-    header p {
-        width: 100%;
+    header {
+        h1 {
+            font-size: 3.5rem;
+        }
+        p {
+            width: 100%;
+        }
+    }
+    .windowB label {
+        width: 95%;
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 700px) {
+    header h1 {
+        font-size: 2.75rem;
+    }
     .windowB {
         .optionContainer {
             justify-content: center;
         }
+        .textContainer {
+            margin-left: 0px;
+        }
+        h2, p {
+            text-align: center;
+        }
     }
-
+    .windowC {
+        .nameplate, .socialMedia .hiddenContents {
+            justify-content: center;
+        }
+        .userName {
+            text-align: center;
+        }
+    }
+    button {
+        margin: 10px;
+    }
 }
 
-@media (max-width: 576px) {
-    header p {
+@media (max-width: 400px) {
+    .windowA select {
         width: 100%;
     }
+
+    header p,
+    .windowA select,
+    .windowB p,
+    .errorContainer p,
+    .windowC p,
+    footer p {
+        font-size: 0.8rem;
+    }
+
     .windowB {
+        h2 {
+            font-size: 1rem;
+        }
         label {
-            width: 90%;
+            box-shadow: 8px 8px 0px $accentBlue;
+        }
+        .fa-plus {
+            font-size: 1.5rem;
         }
     }
 
+    .windowC {
+        padding: 10px;
+    }
 }

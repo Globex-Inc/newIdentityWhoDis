@@ -17,7 +17,7 @@
    </header>
    <main>
       <section class="windowA wrapper">
-         <form action="" class="userInput">
+         <form action="" class="userInput" id="initialForm">
             <label for="gender" class="srOnly">Please pick your new gender.</label>
             <select name="gender" id="gender">
                <option value="" disabled selected>Please pick your new gender</option>
@@ -46,8 +46,10 @@
                <option value="GB">United Kingdom</option>
                <option value="US">United States</option>
             </select>
-            <button type="submit" class="button submitButton">Start</button>
          </form>
+         <div class="buttonContainer">
+            <button type="submit" class="button submitButton" title="Start" form="initialForm"><i class="fas fa-play" aria-hidden="true"></i><span class="srOnly">Start/Play button</span></button>
+         </div>
          <div class="errorContainer">
             <!-- error message to be added dynamically -->
          </div>

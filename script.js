@@ -67,6 +67,7 @@ idApp.eventListeners = function() {
    // Event Listener #5 (Window B) - for when user clicks the 'Show More' button to refresh results - API function is called again, and page scrolls to the top 
    $main.on('submit', '.refreshOptions', function(event) {
       event.preventDefault();
+      $('.errorContainer').empty();
       idApp.apiCall($userGender, $userRegion);
       $('html, body').animate({
          scrollTop: 0
@@ -143,7 +144,7 @@ idApp.listOfNames = function(results){
 
 // Function for displaying the 10 choices on the DOM 
 idApp.displayChoices = function(array, currentWindow, nextWindow) {
-   idApp.windowBInstructions = `Sweet, now you've got some options to work with! <span class='important'>Choose an identity, and click <span class='button'>Next</span> to find out more about the new you! <br> Don't see anything you like? Click <span class='button'>Show Me More</span> to refresh the list. We got you.</span>`
+   idApp.windowBInstructions = `Sweet, now you've got some options to work with! <span class='important'>Choose an identity, and click <span class='button'><i class="fas fa-step-forward" aria-hidden="true"></i><span class="srOnly">Next button</span></span> to find out more about the new you! <br> Don't see anything you like? Hit <span class='button'><i class="fas fa-sync-alt" aria-hidden="true"></i><span class="srOnly">Refresh button</span></span> to refresh the list. We got you.</span>`
 
    $('.instructions').html(idApp.windowBInstructions);
 
@@ -157,9 +158,9 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
    <form action='' class='goBack' id='goBack'>
    </form>
    <div class='buttonContainer'>
-      <button type='submit' form='goBack'>Back</button>
-      <button type='submit' form='refreshOptions' id='top'>Show Me More</button>
-      <button type='submit' form='displayChoices'>Next</button>
+      <button type='submit' form='goBack' title='Back'><i class="fas fa-step-backward" aria-hidden="true"></i><span class="srOnly">Back button</span></button>
+      <button type='submit' form='refreshOptions' id='top' title='Refresh'><i class="fas fa-sync-alt" aria-hidden="true"></i><span class="srOnly">Refresh button</span></button>
+      <button type='submit' form='displayChoices' title='Next'><i class="fas fa-step-forward" aria-hidden="true"></i><span class="srOnly">Next button</span></button>
    </div>
    <div class='errorContainer'>
    </div>
@@ -233,17 +234,17 @@ idApp.finalDisplay = function(array) {
                </div>
             </div>
          </section>
-         <form class='backToWindowB'>
-            <button type='submit'>Back</button>
-         </form>
-         <form>
-            <button type='submit'>Reset</button>
-         </form>
+         <form class='backToWindowB' id='backToWindowB'></form>
+         <form class='' id='windowCReset'></form>
+         <div class='buttonContainer'>
+            <button type='submit' form='backToWindowB' title='Back'><i class="fas fa-step-backward" aria-hidden="true"></i><span class="srOnly">Back button</span></button>
+            <button type='submit' form='windowCReset' title='Reset'><i class="fas fa-redo-alt" aria-hidden="true"></i><span class="srOnly">Reset button</span></button>
+         </div>
       </div>
    `)
 
    $('.instructions').html(`
-   <span>Et voilà!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'>reset button</span> at the bottom if you want to try again.</span>
+   <span>Et voilà!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'><i class="fas fa-redo-alt" aria-hidden="true"></i><span class="srOnly">Reset button</span></span> at the bottom if you want to try again.</span>
    `)
 
    //scroll to top of window during transition from windowB to windowC

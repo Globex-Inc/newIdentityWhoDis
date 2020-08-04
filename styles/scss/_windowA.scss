@@ -12,41 +12,42 @@ main {
    display: flex;
    flex-direction: column;
    justify-content: center;
+   align-items: center;
 
    .userInput {
-      min-height: 65%;
+      min-height: 35%;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: center;
+      align-content: center;
+   }
 
-      select {
-         color: $fontMainColor;
-         background-color: $accentBlue;
-         @include fontStyle($bodyFont, $bgColor, 1rem);
-         text-align: center;
-         box-shadow: -2px 2px $accentBlue;
-         appearance: none;
-         border: 3px solid $bgColor;
-         border-radius: 12px;
-         background-image: url(../assets/noun_chevron_45902.png);
-         background-size: 20px;
-         background-repeat: no-repeat;
-         background-position: 97% center;
-         width: calc(50% - 40px);
-         min-width: 375px;
-         padding: 10px;
-         margin: 0 10px;
-         cursor: pointer;
+   select {
+      color: $fontMainColor;
+      background-color: $accentBlue;
+      @include fontStyle($bodyFont, $bgColor, 1rem);
+      text-align: center;
+      box-shadow: -2px 2px $accentBlue;
+      appearance: none;
+      border: 3px solid $bgColor;
+      border-radius: 12px;
+      background-image: url(../assets/noun_chevron_45902.png);
+      background-size: 20px;
+      background-repeat: no-repeat;
+      background-position: 97% center;
+      width: 375px;
+      padding: 10px;
+      margin: 20px;
+      cursor: pointer;
 
-         &:hover, 
-         &:focus {
-            border: 3px solid $accentBlue;
-         }
-      }
-
-      .submitButton {
-         margin: 0 auto;
+      &:hover, 
+      &:focus {
+         border: 3px solid $accentBlue;
       }
    }
+
+   .submitButton {
+      margin: 0 auto;
+   }
+   
 }

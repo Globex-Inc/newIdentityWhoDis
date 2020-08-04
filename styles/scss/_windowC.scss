@@ -14,14 +14,7 @@
    form {
       text-align: center;
    }
-
-   button {
-      margin: 20px auto;
-      width: 100%;
-      max-width: 200px;
-   }
    
-
    section {
       padding: 20px;
       position: relative;
@@ -60,6 +53,7 @@
 
    .nameplate {
       display: flex;
+      flex-wrap: wrap;
       
       .userPhoto {
          margin-right: 20px;
