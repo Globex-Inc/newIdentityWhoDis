@@ -1,17 +1,21 @@
+//custom user bio module
+import randomizers from './randomizers.js'
+import userBio from './userBio.js'
+
 // Namespace 
 const idApp = {};
 
 // Event Listeners Function  
 idApp.eventListeners = function() {
    //Cache $('main') jQuery selector as we will repeatedly use it
-   $main = $('main');
+   const $main = $('main');
 
    // Event Listener #1 (Window A) - for when the user first submits their preferred region/gender
    $('form').on('submit', function(event){
       event.preventDefault();
       // Cache the user's chosen gender and region (can be re-used again in second API call)
-      $userGender = $('#gender option:checked').val()
-      $userRegion = $('#regions option:checked').val()
+      const $userGender = $('#gender option:checked').val()
+      const $userRegion = $('#regions option:checked').val()
       // Error Handling - for if user does not choose any options 
       if (!$userGender || !$userRegion) {
          $('.errorContainer').html(`<p>Oops! You forgot to fill something in!</p>`);
@@ -106,6 +110,7 @@ idApp.apiCall = function(gender, region) {
 }
 
 // Dice Bear Avatars API Call Function
+idApp.moods = ['happy', 'sad', 'excited']
 idApp.avatarCall = function(gender, name, mood) {
    $.ajax({
       url: `https://avatars.dicebear.com/api/${gender}/${name}.svg`,
@@ -116,14 +121,13 @@ idApp.avatarCall = function(gender, name, mood) {
          r: 50,
          w: 100,
          h: 100,
-         b: '#a8dadc',
          m: 15
       }
    }).then(function(res){
-      console.log(res)
       $('.avatarContainer').html(res)
    })
 }
+
 
 // Function to pull out specific data for the 10 identity choices
 idApp.listOfNames = function(results){
@@ -171,17 +175,24 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
    array.forEach(function(i) {
       const name = $('<h2>').text(i.name);
       const dateBirth = $('<p>').html(`<span class='dobStyle'>Date of Birth:</span> ${i.dateBirth}`);
-      const photo = $('<img>').attr({src: `${i.photo}`, alt: `User photo: ${i.name}`});
       const textContainer = $('<div>').attr('class', 'textContainer').append(name, dateBirth)
+      
+      const photo = $('<img>').attr({src: `${i.photo}`, alt: `User photo: ${i.name}`});
       const imageContainer = $('<div>').attr('class', 'imageContainer').append(photo)
-      const hiddenStuffs = $('<div>').attr('class', 'hiddenContents').text('Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit ducimus dolorem magnam nesciunt nostrum. Voluptatibus, soluta. Unde, porro deserunt vero, ipsum error illo quod quidem voluptatum dolorum voluptas alias aperiam!')
+      
+      userBio.generateBio(i.name);
+      const bioHeader = $('<h3>').text('Sample Personality')
+      const shortBio = $('<p>').text(userBio.bioResults[0].shortBio)
+      const hiddenStuffs = $('<div>').attr('class', 'hiddenContents').append(bioHeader, shortBio)
+
       const closeButton = $('<i>').attr('class', 'fas fa-plus')
+
       const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer, hiddenStuffs);
       const radioInput = $('<input>').attr({
-      type: 'radio', 
-      id: `${i.id}`, 
-      name: 'option', 
-      value: `${i.id}`})
+         type: 'radio', 
+         id: `${i.id}`, 
+         name: 'option', 
+         value: `${i.id}`})
       const radioLabel = $('<label>').attr('for', i.id).attr('class', 'windowBLabel').append(optionContainer, closeButton);
       
       $('.resultsList').append(radioInput, radioLabel);
@@ -190,20 +201,39 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
 
 // Function to display the full bio of the user's chosen identity
 idApp.finalDisplay = function(array) {
+   //scroll to top of window during transition from windowB to windowC
+   window.scrollTo(0, 0);
+
    const finalChoiceObject = array[0]
    const { cell, dob, email, gender, location, login, name, picture } = finalChoiceObject
    const { city, country, postcode, state, street } = location
+   const fullName = `${name.title} ${name.first} ${name.last}`
+   const mood = randomizers.randomIndex(idApp.moods)
+
+   let resultsToDisplay = []
+   userBio.bioResults.forEach(function(i){
+      if (i.name === fullName) {
+         resultsToDisplay.push(i)
+      };
+   })
 
    $('.windowB').toggleClass('windowB windowC').html(`
       <div class='border'>
          <section class='nameplate'>
             <div class='userPhoto'>
-               <img src='${picture.large}' alt='user photo: ${name.first} ${name.last}'>
+               <img src='${picture.large}' alt='user photo: ${fullName}'>
             </div>
             <div class='userName'>
-               <h2>${name.title} ${name.first} ${name.last}</h2>
+               <h2>${fullName}</h2>
                <p>${gender}</p>
                <p>${dob.date.substring(0, 10)}</p>
+            </div>
+         </section>
+         <section class="userBio">
+            <input type='checkbox' id='userBio' name='dropdown' class='checkbox srOnly'>
+            <label for='userBio' class='profileHeader'>- User Bio -</label>
+            <div class='hiddenContents'>
+               <p>${resultsToDisplay[0]['bigBio']}</p>
             </div>
          </section>
          <section class='contactInfo'>
@@ -225,7 +255,7 @@ idApp.finalDisplay = function(array) {
             <label for='newSocials' class='profileHeader'>- New Social Media -</label>
             <div class='hiddenContents'>
                <div class="avatarContainer">
-                  ${idApp.avatarCall(`${gender}`, `${name.first}`, 'sad')}
+                  ${idApp.avatarCall(`${gender}`, `${name.first}`, `${mood}`)}
                </div>
                <div class="profileInfo">
                   <p><span>Username:</span> ${login.username}</p>
@@ -245,9 +275,6 @@ idApp.finalDisplay = function(array) {
    $('.instructions').html(`
    <span>Et voilà!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'>reset button</span> at the bottom if you want to try again.</span>
    `)
-
-   //scroll to top of window during transition from windowB to windowC
-   window.scrollTo(0,0);
 }
 
 // Init Function 
