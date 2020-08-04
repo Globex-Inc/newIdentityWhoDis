@@ -557,7 +557,9 @@ main {
   content: '';
   display: block;
   height: 3px;
-  background: #a8dadc;
+  background: #0f1c2e;
+  -webkit-box-shadow: 4px 4px #a8dadc;
+          box-shadow: 4px 4px #a8dadc;
   margin: 10px 0 20px 0;
 }
 

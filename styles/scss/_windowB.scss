@@ -82,7 +82,8 @@
                 content: '';
                 display: block;
                 height: 3px;
-                background: $accentBlue;
+                background: $bgColor;
+                box-shadow: 4px 4px $accentBlue;
                 margin: 10px 0 20px 0;
             }
         }        
