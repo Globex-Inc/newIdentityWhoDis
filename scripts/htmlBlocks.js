@@ -20,6 +20,36 @@ block.windowBStructure = `
    </div>
    `
 
-block.windowCInstructions = `<span>Et voilà!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'><i class="fas fa-redo-alt" aria-hidden="true"></i><span class="srOnly">Reset button</span></span> at the bottom if you want to try again.</span>`
+block.windowCInstructions = function(first, last) {
+   return `<span>Et voilà!</span> You have selected <span>${first} ${last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'><i class="fas fa-redo-alt" aria-hidden="true"></i><span class="srOnly">Reset button</span></span> at the bottom if you want to try again.</span>`
+}
+
+block.windowCNameplate = function(nameplate, userPhoto, userName) {
+   return `<section class='${nameplate}'>
+            <div class='${userPhoto}'>
+            </div>
+            <div class='${userName}'>
+            </div>
+         </section>`
+}
+
+block.windowCSection = function(sectionClass, sectionID, sectionName) {
+   return `<section class="${sectionClass}">
+            <input type='checkbox' id='${sectionID}' name='dropdown' class='checkbox srOnly'>
+            <label for='${sectionID}' class='profileHeader'>- ${sectionName} -</label>
+            <div class='hiddenContents'>
+               
+            </div>
+         </section>`
+}
+
+block.windowCButtons = `
+         <form id='backToWindowB'>
+         </form>
+         <form id='windowCReset'></form>
+         <div class='buttonContainer'>
+            <button type='submit' form='backToWindowB' title='Back'><i class="fas fa-arrow-left" aria-hidden="true"></i><span class="srOnly">Back button</span></button>
+            <button type='submit' form='windowCReset' title='Reset'><i class="fas fa-redo-alt" aria-hidden="true"></i><span class="srOnly">Reset button</span></button>
+         </div>`
 
 export default block;
