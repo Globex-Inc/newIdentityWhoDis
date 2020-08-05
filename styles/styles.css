@@ -250,7 +250,7 @@ address {
 }
 
 a {
-  color: #f1faee;
+  color: #0f1c2e;
   text-decoration: none;
 }
 
@@ -269,7 +269,7 @@ button {
   padding: 10px 20px;
   color: #f1faee;
   font-family: "Nova Square", cursive;
-  font-size: 1.3rem;
+  font-size: 1rem;
   border: 2.5px solid #e63946;
   border-radius: 12px;
   cursor: pointer;
@@ -366,18 +366,19 @@ header p .important {
   padding: 12px;
   background: #a8dadc;
   border-radius: 8px;
-  line-height: 1.75rem;
+  line-height: 1.2rem;
 }
 
 header p .button {
   text-transform: capitalize;
+  font-size: 0.8rem;
   color: #f1faee;
   font-family: "Nova Square", cursive;
-  padding: 4px 8px;
+  padding: 3px 6px;
   background-color: #e63946;
   border-radius: 8px;
   position: relative;
-  bottom: 6px;
+  bottom: 3px;
 }
 
 main {
@@ -437,7 +438,8 @@ main {
   background-repeat: no-repeat;
   background-position: 97% center;
   width: 375px;
-  padding: 10px;
+  padding: 8px;
+  height: 65px;
   margin: 20px;
   cursor: pointer;
 }
@@ -473,21 +475,19 @@ main {
   padding-bottom: 50px;
 }
 
-.windowB fieldset h2 {
-  margin: 10px 0;
-  font-size: 1.3rem;
-  font-family: "Nova Square", cursive;
-  font-weight: 400;
-  color: #d90429;
-  line-height: auto;
-}
-
-.windowB fieldset h3 {
+.windowB fieldset h2, .windowB fieldset h3 {
   font-size: 1.3rem;
   font-family: "Nova Square", cursive;
   font-weight: 400;
   color: #0f1c2e;
   line-height: auto;
+}
+
+.windowB fieldset h2 {
+  margin: 10px 0;
+}
+
+.windowB fieldset h3 {
   margin-bottom: 10px;
 }
 
@@ -588,17 +588,8 @@ main {
   transition: all 0.5s;
 }
 
-.windowB label:hover h2,
-.windowB input[type='radio']:focus + label h2 {
-  color: #0f1c2e;
-}
-
 .windowB input[type='radio']:checked + label {
   background-color: #e63946;
-}
-
-.windowB input[type='radio']:checked + label h2 {
-  color: #0f1c2e;
 }
 
 .windowC {
@@ -735,7 +726,7 @@ footer {
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
-  color: #f1faee;
+  color: #0f1c2e;
   line-height: auto;
   background-color: #78a5bf;
   padding: 15px 0;
@@ -800,9 +791,23 @@ footer {
   .windowB fieldset label {
     -webkit-box-shadow: 8px 8px 0px #a8dadc;
             box-shadow: 8px 8px 0px #a8dadc;
+    padding: 10px 0;
   }
   .windowB fieldset .fa-plus {
     font-size: 1.5rem;
+  }
+  .windowB fieldset .hiddenContents {
+    text-align: center;
+  }
+  .windowB .buttonContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    margin-top: 0px;
   }
   .windowC {
     padding: 10px;

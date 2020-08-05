@@ -16,15 +16,15 @@ idApp.eventListeners = function() {
    // Event Listener #1 (Window A) - for when the user first submits their preferred region/gender
    $('form').on('submit', function(event){
       event.preventDefault();
-      // Cache the user's chosen gender and region (can be re-used again in second API call)
-      const $userGender = $('#gender option:checked').val()
-      const $userRegion = $('#regions option:checked').val()
+      // Store the user's chosen gender and region in global variable (can be re-used again in second API call)
+      idApp.userGender = $('#gender option:checked').val();
+      idApp.userRegion = $('#regions option:checked').val();
       // Error Handling - for if user does not choose any options 
-      if (!$userGender || !$userRegion) {
+      if (!idApp.userGender || !idApp.userRegion) {
          $('.errorContainer').html(`<p>Oops! You forgot to fill something in!</p>`);
       } else {
          // Call the API function, passing in the user's choices as arguments 
-         idApp.apiCall($userGender, $userRegion);
+         idApp.apiCall(idApp.userGender, idApp.userRegion);
       }
    })
 
@@ -75,7 +75,7 @@ idApp.eventListeners = function() {
    $main.on('submit', '.refreshOptions', function(event) {
       event.preventDefault();
       $('.errorContainer').empty();
-      idApp.apiCall($userGender, $userRegion);
+      idApp.apiCall(idApp.userGender, idApp.userRegion);
       $('html, body').animate({
          scrollTop: 0
          }, 800);

@@ -8,14 +8,16 @@
         flex-wrap: wrap;
         border: none;
         padding-bottom: 50px;
+
+        h2, h3 {
+            @include fontStyle($decorFont, $bgColor, 1.3rem)
+        }
     
         h2 {
             margin: 10px 0;
-            @include fontStyle($decorFont, $accentVibrantRed, 1.3rem)
         }
 
         h3 {
-            @include fontStyle($decorFont, $bgColor, 1.3rem);
             margin-bottom: 10px;
         }
 
@@ -97,17 +99,11 @@
     input[type='radio']:focus + label {
         background-color: $hoverRed;
         cursor: pointer;
-        h2 {
-            color: $bgColor;
-        }
         transition: all 0.5s;
     }
 
     input[type='radio']:checked + label {
         background-color: $accentRed;
-        h2 {
-            color: $bgColor;
-        }
     }
 }
 
