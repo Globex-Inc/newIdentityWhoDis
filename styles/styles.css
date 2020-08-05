@@ -439,7 +439,7 @@ main {
   background-position: 97% center;
   width: 375px;
   padding: 10px;
-  height: 55px;
+  height: 60px;
   margin: 20px;
   cursor: pointer;
 }
@@ -813,9 +813,9 @@ footer {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
     margin-top: 0px;
   }
   .windowC {
