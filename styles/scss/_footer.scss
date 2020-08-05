@@ -1,5 +1,5 @@
 footer {
-    @include fontStyle ($bodyFont, $fontMainColor, 1rem);
+    @include fontStyle ($bodyFont, $bgColor, 1rem);
     background-color: $secondBgColor;
     padding: 15px 0;
     text-align: center;
