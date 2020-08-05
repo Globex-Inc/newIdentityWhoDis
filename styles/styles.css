@@ -269,7 +269,7 @@ button {
   padding: 10px 20px;
   color: #f1faee;
   font-family: "Nova Square", cursive;
-  font-size: 1.3rem;
+  font-size: 1rem;
   border: 2.5px solid #e63946;
   border-radius: 12px;
   cursor: pointer;
@@ -366,18 +366,19 @@ header p .important {
   padding: 12px;
   background: #a8dadc;
   border-radius: 8px;
-  line-height: 1.75rem;
+  line-height: 1.5rem;
 }
 
 header p .button {
   text-transform: capitalize;
+  font-size: 0.8rem;
   color: #f1faee;
   font-family: "Nova Square", cursive;
-  padding: 4px 8px;
+  padding: 3px 6px;
   background-color: #e63946;
   border-radius: 8px;
   position: relative;
-  bottom: 6px;
+  bottom: 3px;
 }
 
 main {
@@ -800,9 +801,13 @@ footer {
   .windowB fieldset label {
     -webkit-box-shadow: 8px 8px 0px #a8dadc;
             box-shadow: 8px 8px 0px #a8dadc;
+    padding: 10px 0;
   }
   .windowB fieldset .fa-plus {
     font-size: 1.5rem;
+  }
+  .windowB fieldset .hiddenContents {
+    text-align: center;
   }
   .windowC {
     padding: 10px;

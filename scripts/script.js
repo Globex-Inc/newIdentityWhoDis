@@ -148,7 +148,7 @@ idApp.listOfNames = function(results){
 
 // Function for displaying the 10 choices on the DOM 
 idApp.displayChoices = function(array, currentWindow, nextWindow) {
-   idApp.windowBInstructions = `Sweet, now you've got some options to work with! <span class='important'>Choose an identity, and click <span class='button'><i class="fas fa-arrow-right" aria-hidden="true"></i><span class="srOnly">Next button</span></span> to find out more about the new you! <br> Don't see anything you like? Hit <span class='button'><i class="fas fa-sync-alt" aria-hidden="true"></i><span class="srOnly">Refresh button</span></span> to refresh the list. We got you.</span>` 
+   idApp.windowBInstructions = `Sweet, now you've got some options to work with! <span class='important'>Choose an identity, and click <span class='button'>Next</span> to find out more about the new you! <br> Don't see anything you like? Hit <span class='button'>Refresh</span> to refresh the list. We got you.</span>` 
 
    $('.instructions').html(idApp.windowBInstructions);
 
@@ -162,9 +162,9 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
    <form action='' class='goBack' id='goBack'>
    </form>
    <div class='buttonContainer'>
-      <button type='submit' form='goBack' title='Back'><i class="fas fa-arrow-left" aria-hidden="true"></i><span class="srOnly">Back button</span></button>
-      <button type='submit' form='refreshOptions' id='top' title='Refresh'><i class="fas fa-sync-alt" aria-hidden="true"></i><span class="srOnly">Refresh button</span></button>
-      <button type='submit' form='displayChoices' title='Next'><i class="fas fa-arrow-right" aria-hidden="true"></i><span class="srOnly">Next button</span></button>
+      <button type='submit' form='goBack'>Back</button>
+      <button type='submit' form='refreshOptions' id='top'>Refresh</button>
+      <button type='submit' form='displayChoices'>Next</button>
    </div>
    <div class='errorContainer'>
    </div>
@@ -267,14 +267,14 @@ idApp.finalDisplay = function(array) {
          <form class='backToWindowB' id='backToWindowB'></form>
          <form class='' id='windowCReset'></form>
          <div class='buttonContainer'>
-            <button type='submit' form='backToWindowB' title='Back'><i class="fas fa-arrow-left" aria-hidden="true"></i><span class="srOnly">Back button</span></button>
-            <button type='submit' form='windowCReset' title='Reset'><i class="fas fa-redo-alt" aria-hidden="true"></i><span class="srOnly">Reset button</span></button>
+            <button type='submit' form='backToWindowB'>Back</button>
+            <button type='submit' form='windowCReset'>Reset</button>
          </div>
       </div>
    `)
 
    $('.instructions').html(`
-   <span>Et voilà!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'><i class="fas fa-redo-alt" aria-hidden="true"></i><span class="srOnly">Reset button</span></span> at the bottom if you want to try again.</span>
+   <span>Et voilà!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'>Reset</span> at the bottom if you want to try again.</span>
    `)
 }
 

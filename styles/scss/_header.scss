@@ -32,18 +32,19 @@ header {
          padding: 12px;
          background: $accentBlue;
          border-radius: 8px;
-         line-height: 1.75rem;
+         line-height: 1.5rem;
       }
 
       .button {
          text-transform: capitalize;
+         font-size: 0.8rem;
          color: $fontMainColor;
          font-family: $decorFont;
-         padding: 4px 8px;
+         padding: 3px 6px;
          background-color: $accentRed;
          border-radius: 8px;
          position: relative;
-         bottom: 6px;
+         bottom: 3px;
       }
    }
 }
