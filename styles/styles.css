@@ -475,21 +475,19 @@ main {
   padding-bottom: 50px;
 }
 
-.windowB fieldset h2 {
-  margin: 10px 0;
-  font-size: 1.3rem;
-  font-family: "Nova Square", cursive;
-  font-weight: 400;
-  color: #d90429;
-  line-height: auto;
-}
-
-.windowB fieldset h3 {
+.windowB fieldset h2, .windowB fieldset h3 {
   font-size: 1.3rem;
   font-family: "Nova Square", cursive;
   font-weight: 400;
   color: #0f1c2e;
   line-height: auto;
+}
+
+.windowB fieldset h2 {
+  margin: 10px 0;
+}
+
+.windowB fieldset h3 {
   margin-bottom: 10px;
 }
 
