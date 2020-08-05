@@ -1,6 +1,9 @@
-//custom user bio module
+// randomizer helper functions module
 import randomizers from './randomizers.js'
+//custom user bio module
 import userBio from './userBio.js'
+//blocks of HTML to be displayed on the page
+import blocks from './htmlBlocks.js'
 
 // Namespace 
 const idApp = {};
@@ -111,7 +114,7 @@ idApp.apiCall = function(gender, region) {
 }
 
 // Dice Bear Avatars API Call Function
-idApp.moods = ['happy', 'sad', 'excited']
+idApp.moods = ['happy', 'sad', 'surprised']
 idApp.avatarCall = function(gender, name, mood) {
    $.ajax({
       url: `https://avatars.dicebear.com/api/${gender}/${name}.svg`,
@@ -148,28 +151,11 @@ idApp.listOfNames = function(results){
 
 // Function for displaying the 10 choices on the DOM 
 idApp.displayChoices = function(array, currentWindow, nextWindow) {
-   idApp.windowBInstructions = `Sweet, now you've got some options to work with! <span class='important'>Choose an identity, and click <span class='button'><i class="fas fa-arrow-right" aria-hidden="true"></i><span class="srOnly">Next button</span></span> to find out more about the new you! <br> Don't see anything you like? Hit <span class='button'><i class="fas fa-sync-alt" aria-hidden="true"></i><span class="srOnly">Refresh button</span></span> to refresh the list. We got you.</span>` 
+   //instructions for Window B are in htmlBlocks.js module
+   $('.instructions').html(blocks.windowBInstructions);
 
-   $('.instructions').html(idApp.windowBInstructions);
-
-   idApp.windowBContent = `
-   <form action='' class='displayChoices' id='displayChoices'>
-      <fieldset class='resultsList'>
-      </fieldset>
-   </form>
-   <form action='' class='refreshOptions' id='refreshOptions'>
-   </form>
-   <form action='' class='goBack' id='goBack'>
-   </form>
-   <div class='buttonContainer'>
-      <button type='submit' form='goBack' title='Back'><i class="fas fa-arrow-left" aria-hidden="true"></i><span class="srOnly">Back button</span></button>
-      <button type='submit' form='refreshOptions' id='top' title='Refresh'><i class="fas fa-sync-alt" aria-hidden="true"></i><span class="srOnly">Refresh button</span></button>
-      <button type='submit' form='displayChoices' title='Next'><i class="fas fa-arrow-right" aria-hidden="true"></i><span class="srOnly">Next button</span></button>
-   </div>
-   <div class='errorContainer'>
-   </div>
-   `
-   $(`.${currentWindow}`).toggleClass(`${currentWindow} ${nextWindow}`).html(idApp.windowBContent);
+   //html block of the window B structure is in htmlBlocks.js
+   $(`.${currentWindow}`).toggleClass(`${currentWindow} ${nextWindow}`).html(blocks.windowBStructure);
 
    $('.resultsList').empty();
 
@@ -204,6 +190,9 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
 idApp.finalDisplay = function(array) {
    //scroll to top of window during transition from windowB to windowC
    window.scrollTo(0, 0);
+
+   //instructions for Window C is in htmlBlocks.js
+   $('.instructions').html(blocks.windowCInstructions)
 
    const finalChoiceObject = array[0]
    const { cell, dob, email, gender, location, login, name, picture } = finalChoiceObject
@@ -271,10 +260,6 @@ idApp.finalDisplay = function(array) {
             <button type='submit' form='windowCReset' title='Reset'><i class="fas fa-redo-alt" aria-hidden="true"></i><span class="srOnly">Reset button</span></button>
          </div>
       </div>
-   `)
-
-   $('.instructions').html(`
-   <span>Et voilà!</span> You have selected <span>${name.first} ${name.last}</span> as your new online identity! <br>You have enough here to make a new account on the platform of your choosing. <span class='important'>Click the <span class='button'><i class="fas fa-redo-alt" aria-hidden="true"></i><span class="srOnly">Reset button</span></span> at the bottom if you want to try again.</span>
    `)
 }
 
