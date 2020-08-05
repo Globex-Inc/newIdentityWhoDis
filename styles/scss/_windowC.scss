@@ -26,7 +26,7 @@
          position: absolute;
          box-shadow: -6px 6px $accentBlue;
          bottom: 0;
-         right: 20px;
+         right: 15px;
          left: 20px;
       }
 
@@ -83,6 +83,7 @@
 
    .profileHeader {
    color: $bgColor;
+   font-size: 1.2rem;
    font-weight: 700;
    padding: 10px;
    border-radius: 12px;
