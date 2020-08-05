@@ -366,7 +366,7 @@ header p .important {
   padding: 12px;
   background: #a8dadc;
   border-radius: 8px;
-  line-height: 1.2rem;
+  line-height: 1.5rem;
 }
 
 header p .button {
@@ -418,8 +418,8 @@ main {
 }
 
 .windowA select {
+  background: url(../assets/noun_chevron_45902.png) no-repeat 97% center/20px #a8dadc;
   color: #f1faee;
-  background-color: #a8dadc;
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
@@ -433,12 +433,9 @@ main {
           appearance: none;
   border: 3px solid #0f1c2e;
   border-radius: 12px;
-  background-image: url(../assets/noun_chevron_45902.png);
-  background-size: 20px;
-  background-repeat: no-repeat;
-  background-position: 97% center;
   width: 375px;
   padding: 8px;
+  padding-right: 30px;
   height: 65px;
   margin: 20px;
   cursor: pointer;
@@ -632,7 +629,7 @@ main {
   -webkit-box-shadow: -6px 6px #a8dadc;
           box-shadow: -6px 6px #a8dadc;
   bottom: 0;
-  right: 20px;
+  right: 15px;
   left: 20px;
 }
 
@@ -692,6 +689,7 @@ main {
 
 .windowC .profileHeader {
   color: #0f1c2e;
+  font-size: 1.2rem;
   font-weight: 700;
   padding: 10px;
   border-radius: 12px;
@@ -757,7 +755,7 @@ footer {
   .windowB fieldset .textContainer {
     margin-left: 0px;
   }
-  .windowB fieldset h2, .windowB fieldset p {
+  .windowB fieldset h2, .windowB fieldset h3, .windowB fieldset p {
     text-align: center;
   }
   .windowC .nameplate, .windowC .socialMedia .hiddenContents {
@@ -773,17 +771,19 @@ footer {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
   header p,
   .windowA select,
   .windowB fieldset p,
   .errorContainer p,
   .windowC p,
   footer p {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
   .windowA select {
+    min-width: 295px;
     width: 100%;
+    padding-left: 12px;
   }
   .windowB fieldset h2 {
     font-size: 1rem;
@@ -811,5 +811,25 @@ footer {
   }
   .windowC {
     padding: 10px;
+  }
+  .windowC section {
+    padding: 10px;
+  }
+  .windowC section p {
+    margin-left: 10px;
+  }
+  .windowC section::after {
+    right: 5px;
+    left: 10px;
+  }
+  .windowC .profileHeader {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .windowA select {
+    font-size: .7rem;
+    min-width: 265px;
   }
 }

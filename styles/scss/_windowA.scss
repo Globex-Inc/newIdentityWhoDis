@@ -19,20 +19,17 @@ main {
    }
 
    select {
+      background: url(../assets/noun_chevron_45902.png) no-repeat 97% center/ 20px $accentBlue;
       color: $fontMainColor;
-      background-color: $accentBlue;
       @include fontStyle($bodyFont, $bgColor, 1rem);
       text-align: center;
       box-shadow: -2px 2px $accentBlue;
       appearance: none;
       border: 3px solid $bgColor;
       border-radius: 12px;
-      background-image: url(../assets/noun_chevron_45902.png);
-      background-size: 20px;
-      background-repeat: no-repeat;
-      background-position: 97% center;
       width: 375px;
       padding: 8px;
+      padding-right: 30px;
       height: 65px;
       margin: 20px;
       cursor: pointer;

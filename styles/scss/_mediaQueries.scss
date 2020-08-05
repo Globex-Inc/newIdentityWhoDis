@@ -13,7 +13,6 @@
     }
 }
 
-
 // Media query to center flexed content as it wraps, and to reduce margin/font sizes
 @media (max-width: 700px) {
     header h1 {
@@ -26,7 +25,7 @@
         .textContainer {
             margin-left: 0px;
         }
-        h2, p {
+        h2, h3, p {
             text-align: center;
         }
     }
@@ -43,20 +42,21 @@
     }
 }
 
-
 // Media query to reduce font sizes, padding, and box-shadow, and increase width of <select> 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
     header p,
     .windowA select,
     .windowB fieldset p,
     .errorContainer p,
     .windowC p,
     footer p {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .windowA select {
+        min-width: 295px;
         width: 100%;
+        padding-left: 12px;
     }
 
     .windowB {
@@ -85,5 +85,30 @@
 
     .windowC {
         padding: 10px;
+
+        section {
+            padding: 10px;
+
+            p {
+                margin-left: 10px;
+            }
+
+            &::after {
+                right: 5px;
+                left: 10px;
+            }
+        }
+
+        .profileHeader {
+            font-size: 0.9rem;
+        }
+    }
+}
+
+// Media query to resize select inputs that were breaking out of container
+@media (max-width: 340px) {
+    .windowA select {
+        font-size: .7rem;
+        min-width: 265px;
     }
 }
