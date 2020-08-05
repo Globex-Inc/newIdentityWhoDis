@@ -250,7 +250,7 @@ address {
 }
 
 a {
-  color: #f1faee;
+  color: #0f1c2e;
   text-decoration: none;
 }
 
@@ -736,7 +736,7 @@ footer {
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
-  color: #f1faee;
+  color: #0f1c2e;
   line-height: auto;
   background-color: #78a5bf;
   padding: 15px 0;
@@ -808,6 +808,16 @@ footer {
   }
   .windowB fieldset .hiddenContents {
     text-align: center;
+  }
+  .windowB .buttonContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    margin-top: 0px;
   }
   .windowC {
     padding: 10px;

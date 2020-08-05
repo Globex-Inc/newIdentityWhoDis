@@ -59,19 +59,27 @@
         width: 100%;
     }
 
-    .windowB fieldset {
-        h2 {
-            font-size: 1rem;
+    .windowB {
+        fieldset {
+            h2 {
+                font-size: 1rem;
+            }
+            label {
+                box-shadow: 8px 8px 0px $accentBlue;
+                padding: 10px 0;
+            }
+            .fa-plus {
+                font-size: 1.5rem;
+            }
+            .hiddenContents {
+                text-align: center;
+            }
         }
-        label {
-            box-shadow: 8px 8px 0px $accentBlue;
-            padding: 10px 0;
-        }
-        .fa-plus {
-            font-size: 1.5rem;
-        }
-        .hiddenContents {
-            text-align: center;
+
+        .buttonContainer {
+            display: flex;
+            flex-direction: column;
+            margin-top: 0px;
         }
     }
 
