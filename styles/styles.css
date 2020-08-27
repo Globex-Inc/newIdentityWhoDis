@@ -720,6 +720,10 @@ main {
       align-self: flex-end;
 }
 
+.placeholder {
+  width: 70px;
+}
+
 footer {
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
