@@ -62,7 +62,7 @@ idApp.eventListeners = function() {
    })
 
    // Event Listener #3B to hide the extra info by clicking the X button
-   $main.on('click', '.fa-plus', function() {
+   $main.on('click', '.closeButton', function() {
       $(this).toggleClass('active');
       $(this).siblings('.optionContainer').find('.hiddenContents').toggleClass('displayContents')
    })
@@ -179,11 +179,15 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
       userBio.generateBio(identityObject.name);
       const bioHeader = $('<h3>').text('Sample Personality')
       const shortBio = $('<p>').text(userBio.bioResults[0].shortBio)
-      const hiddenStuffs = $('<div>').attr('class', 'hiddenContents').append(bioHeader, shortBio)
+      const hiddenBio = $('<div>').attr('class', 'hiddenContents').append(bioHeader, shortBio)
 
-      const closeButton = $('<i>').attr('class', 'fas fa-plus')
+      const plusIcon = $('<i>').attr('class', 'fas fa-plus')
+      const closeButton = $('<button>').attr({
+         class: 'closeButton',
+         title: 'More Information',
+         type: 'button'}).attr('aria-label', 'Click here to show more information about this identity').append(plusIcon);
 
-      const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer, hiddenStuffs);
+      const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer, hiddenBio);
       const radioInput = $('<input>').attr({
          type: 'radio', 
          id: `${identityObject.id}`, 
@@ -282,6 +286,7 @@ idApp.finalDisplay = function(array) {
 // Init Function 
 idApp.init = function(){
    idApp.eventListeners();
+   console.log('Oh, hello there! Wondering why the keyboard tabbing on the options page is wonky? So are we! This is a bug we are aware of and are working to fix, as we want to make sure our application is fully accessible to all users. Stay tuned for a fix! 🔥');
 }
 
 // Document Ready
