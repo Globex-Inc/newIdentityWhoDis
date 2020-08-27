@@ -36,7 +36,7 @@ block.windowCNameplate = function(nameplate, userPhoto, userName) {
 block.windowCSection = function(sectionClass, sectionID, sectionName) {
    return `<section class="${sectionClass}">
             <input type='checkbox' id='${sectionID}' name='dropdown' class='checkbox srOnly'>
-            <label for='${sectionID}' class='profileHeader'>- ${sectionName} -</label>
+            <label for='${sectionID}' class='profileHeader' aria-label='Click here to show more information for ${sectionName}'>- ${sectionName} -</label>
             <div class='hiddenContents'>
                
             </div>

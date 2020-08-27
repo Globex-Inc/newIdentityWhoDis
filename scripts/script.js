@@ -182,7 +182,10 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
       const hiddenBio = $('<div>').attr('class', 'hiddenContents').append(bioHeader, shortBio)
 
       const plusIcon = $('<i>').attr('class', 'fas fa-plus')
-      const closeButton = $('<button>').attr({class: 'closeButton', title: 'More Info', type: 'button'}).append(plusIcon);
+      const closeButton = $('<button>').attr({
+         class: 'closeButton',
+         title: 'More Information',
+         type: 'button'}).attr('aria-label', 'Click here to show more information about this identity').append(plusIcon);
 
       const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer, hiddenBio);
       const radioInput = $('<input>').attr({
