@@ -4,6 +4,8 @@ import randomizers from './randomizers.js'
 import userBio from './userBio.js'
 //blocks of HTML to be displayed on the page
 import block from './htmlBlocks.js'
+// helper function for placeholder images
+import helpers from './helpers.js'
 
 // Namespace 
 const idApp = {};
@@ -127,8 +129,13 @@ idApp.avatarCall = function(gender, name, mood) {
          h: 100,
          m: 15
       }
-   }).then(function(res){
+   }).always(function(){
+      $('.avatarContainer').html(helpers.placeholderImg(idApp.userGender))
+   })
+   .then(function(res){
       $('.avatarContainer').html(res)
+   }).fail(function(){
+      $('.avatarContainer').html(helpers.placeholderImg(idApp.userGender))
    })
 }
 
@@ -136,12 +143,12 @@ idApp.avatarCall = function(gender, name, mood) {
 // Function to pull out specific data for the 10 identity choices
 idApp.listOfNames = function(results){
    // Store results in new global array called idApp.resultsList
-   idApp.resultsList = results.map(function(i) {
+   idApp.resultsList = results.map(function(identityObject) {
       const identity = {
-         name: `${i.name.title} ${i.name.first} ${i.name.last}`,
-         dateBirth: i.dob.date.substring(0, 10),
-         photo: i.picture.large,
-         id: i.login.salt
+         name: `${identityObject.name.title} ${identityObject.name.first} ${identityObject.name.last}`,
+         dateBirth: identityObject.dob.date.substring(0, 10),
+         photo: identityObject.picture.large,
+         id: identityObject.login.salt
       };
       return identity
    })
@@ -159,17 +166,17 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
 
    $('.resultsList').empty();
 
-   array.forEach(function(i) {
-      const name = $('<h2>').text(i.name);
-      const dateBirth = $('<p>').html(`<span class='dobStyle'>Date of Birth:</span> ${i.dateBirth}`);
+   array.forEach(function(identityObject) {
+      const name = $('<h2>').text(identityObject.name);
+      const dateBirth = $('<p>').html(`<span class='dobStyle'>Date of Birth:</span> ${identityObject.dateBirth}`);
       const textContainer = $('<div>').attr('class', 'textContainer').append(name, dateBirth)
       
       const photo = $('<img>').attr({
-         src: `${i.photo}`, 
-         alt: `User photo: ${i.name}`});
+         src: `${identityObject.photo}`, 
+         alt: `User photo: ${identityObject.name}`});
       const imageContainer = $('<div>').attr('class', 'imageContainer').append(photo)
       
-      userBio.generateBio(i.name);
+      userBio.generateBio(identityObject.name);
       const bioHeader = $('<h3>').text('Sample Personality')
       const shortBio = $('<p>').text(userBio.bioResults[0].shortBio)
       const hiddenStuffs = $('<div>').attr('class', 'hiddenContents').append(bioHeader, shortBio)
@@ -179,10 +186,10 @@ idApp.displayChoices = function(array, currentWindow, nextWindow) {
       const optionContainer = $('<div>').attr('class', 'optionContainer').append(imageContainer, textContainer, hiddenStuffs);
       const radioInput = $('<input>').attr({
          type: 'radio', 
-         id: `${i.id}`, 
+         id: `${identityObject.id}`, 
          name: 'option', 
-         value: `${i.id}`})
-      const radioLabel = $('<label>').attr('for', i.id).attr('class', 'windowBLabel').append(optionContainer, closeButton);
+         value: `${identityObject.id}`})
+      const radioLabel = $('<label>').attr('for', identityObject.id).attr('class', 'windowBLabel').append(optionContainer, closeButton);
       
       $('.resultsList').append(radioInput, radioLabel);
    })
@@ -206,6 +213,9 @@ idApp.finalDisplay = function(array) {
          resultsToDisplay.push(i)
       };
    })
+
+   // API call for random avatar, called early to improve performance
+   const profileAvatar = $('<div>').addClass('avatarContainer').html(`${idApp.avatarCall(`${gender}`, `${name.first}`, `${mood}`)}`);
 
    //instructions for Window C is in htmlBlocks.js
    $('.instructions').html(block.windowCInstructions(name.first, name.last))
@@ -255,8 +265,6 @@ idApp.finalDisplay = function(array) {
 
    //Window C Section: New Social Media
    $('.border').append(block.windowCSection('socialMedia', 'newSocials', 'New Social Media'))
-
-   const profileAvatar = $('<div>').addClass('avatarContainer').html(`${idApp.avatarCall(`${gender}`, `${name.first}`, `${mood}`)}`);
    
    const profileUsername = $('<p>').html(`<span>Username:</span> ${login.username}`);
    const profilePassword = $('<p>').html(`<span>Password:</span> ${login.password}`);
